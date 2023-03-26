@@ -1,10 +1,13 @@
-#ignore SecretService file that was created by Visual Studio
+# ignore SecretService file that was created by Visual Studio
 SecretService
 
-#ignore all .vs files
+# ignore x64 file
+x64
+
+# ignore all .vs files
 *.vs
 
-#ignore all .sln files
+# ignore all .sln files
 *.sln
 
 # ignore all .vcxproj files
