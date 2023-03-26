@@ -1,0 +1,14 @@
+#ignore all .vs files
+*.vs
+
+#ignore all .sln files
+*.sln
+
+# ignore all .vcxproj files
+*.vcxproj
+
+# ignore all .filters files
+*.filters
+
+# ignore all .user files
+*.user
