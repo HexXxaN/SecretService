@@ -1,3 +1,6 @@
+#ignore SecretService file that was created by Visual Studio
+SecretService
+
 #ignore all .vs files
 *.vs
 
