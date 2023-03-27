@@ -1,3 +1,4 @@
+#pragma once
 #include "Agent.h"
 
 void Agent::newPosition(int xn, int yn)
