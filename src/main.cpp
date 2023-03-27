@@ -1,17 +1,24 @@
 #pragma once
-#include "SDL.h"
+#include <SDL.h>
+#include "WindowRender.h"
 
 int main(int argc, char *argv[]) {
+	SDL_Init(SDL_INIT_EVERYTHING);	// initializing SDL library
+	WindowRender window("Secret Service v1.0", 1280, 720);
 
-	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow("Secret Service", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 768, SDL_WINDOW_SHOWN);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	bool gameRunning = true;
+	SDL_Event event;
 
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+	while (gameRunning) {
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT)
+				gameRunning = false;
+		}
+	}
 
-	SDL_RenderClear(renderer);
-	while(1)
-		SDL_RenderPresent(renderer);
+	window.cleanUp();	// destroy the game window created by the window object
+
+	SDL_Quit();
 
 	return 0;
 }
