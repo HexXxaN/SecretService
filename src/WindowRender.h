@@ -8,9 +8,9 @@ private:
 	SDL_Renderer* renderer;
 public:
 	WindowRender(const char* title, int width, int height);
+	~WindowRender();
 	SDL_Texture* loadTexture(const char* filePath);
 	void clear();
 	void render(SDL_Texture* texture);
 	void display();
-	void cleanUp();
 };

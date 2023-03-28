@@ -5,9 +5,10 @@
 
 int main(int argc, char *argv[]) {
 	SDL_Init(SDL_INIT_EVERYTHING);	// initializing SDL library
-	WindowRender window("Secret Service v1.0", 1280, 720);
-
-	SDL_Texture* grassTexture = window.loadTexture("../res/gfx/ground_grass_1.png");
+	WindowRender*  window;
+	window = new WindowRender("Secret Service", 1280, 720);
+	
+	SDL_Texture* grassTexture = window->loadTexture("../res/gfx/ground_grass_1.png");
 
 	bool gameRunning = true;
 	SDL_Event event;
@@ -18,12 +19,12 @@ int main(int argc, char *argv[]) {
 				gameRunning = false;
 		}
 
-		window.clear();
-		window.render(grassTexture);
-		window.display();
+		window->clear();
+		window->render(grassTexture);
+		window->display();
 	}
 
-	window.cleanUp();	// destroy the game window created by the window object
+	delete window;	// destroy the game window created by the window object
 
 	SDL_Quit();
 
