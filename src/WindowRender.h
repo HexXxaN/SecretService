@@ -11,6 +11,6 @@ public:
 	~WindowRender();
 	SDL_Texture* loadTexture(const char* filePath);
 	void clear();
-	void render(SDL_Texture* texture);
+	void render(SDL_Texture* texture,SDL_Rect* src, SDL_Rect* dst);
 	void display();
 };
