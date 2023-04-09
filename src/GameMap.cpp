@@ -3,8 +3,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "GameMap.h"
+#include "WindowRender.h"
 
-GameMap::GameMap(WindowRender* &p_window){
+GameMap::GameMap(WindowRender* p_window){
 	SDL_Texture* grass1 = p_window->load_texture("../res/gfx/ground_grass_1.png");
 	SDL_Texture* grass2 = p_window->load_texture("../res/gfx/ground_grass_2.png");
 	SDL_Texture* pavement = p_window->load_texture("../res/gfx/ground_pavement_1.png");
@@ -22,7 +23,7 @@ GameMap::~GameMap(){
 		SDL_DestroyTexture(m_textures[i-1]);
 }
 
-SDL_Texture* GameMap::render_map(WindowRender* &p_window){
+SDL_Texture* GameMap::render_map(WindowRender* p_window){
 	SDL_Renderer* renderer = p_window->get_renderer();
 	SDL_Texture* mapTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
 		SDL_TEXTUREACCESS_TARGET, MapWidth * 64, MapHeight * 64);
@@ -50,6 +51,7 @@ SDL_Texture* GameMap::render_map(WindowRender* &p_window){
 			}
 		}
 	}
+
 	SDL_SetRenderTarget(renderer, nullptr);
 	return mapTexture;
 }

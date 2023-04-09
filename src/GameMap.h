@@ -15,9 +15,10 @@ enum texture_names
 class GameMap
 {
 public:
-	GameMap(WindowRender* &p_window);
+	GameMap(WindowRender* p_window);
 	~GameMap();
-	SDL_Texture* render_map(WindowRender* &p_window);
+	SDL_Texture* render_map(WindowRender* p_window);
+
 private:
 	int m_Map[MapHeight][MapWidth] = {
 	gr1, gr1, gr2, gr1, gr2, gr2, gr2, gr1, pv1, bw1, gr1, gr1, gr2, gr1, gr2, gr2, gr2, gr1, pv1, bw1,	// 1

@@ -1,6 +1,5 @@
 #pragma once
 #include <SDL.h>
-#include <SDL_image.h>
 
 class WindowRender {
 public:
@@ -11,6 +10,7 @@ public:
 	void clear();
 	void render(SDL_Texture* p_texture,SDL_Rect* p_src, SDL_Rect* p_dst);
 	void display();
+
 private:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
