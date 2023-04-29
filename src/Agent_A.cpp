@@ -3,11 +3,11 @@
 #include <SDL_image.h>
 #include "Agent_A.h"
 
-Agent_A::Agent_A(WindowRender* p_window){
-	m_texture = new Texture(p_window, "../res/gfx/player_dot.png", true);
+Agent_A::Agent_A() {
+	//Player has higher speed than the enemies
+	m_agent_vel = 10;
 }
 
-Agent_A::~Agent_A(){
-	delete m_texture;
-	m_texture = nullptr;
+Agent_A::~Agent_A() {
+
 }

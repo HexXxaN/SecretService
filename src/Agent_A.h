@@ -8,8 +8,8 @@
 class Agent_A : public Agent
 {
 public:
-	Agent_A(WindowRender* p_window);
+	Agent_A();
 	~Agent_A();
 
-private:
+protected:
 };

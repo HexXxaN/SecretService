@@ -1,21 +1,20 @@
 #pragma once
 #include <SDL.h>
+#include <vector>
 #include "Texture.h"
 #include "WindowRender.h"
 
 class Agent
 {
 public:
-	SDL_Texture* get_texture();
 	SDL_Rect* get_dst();
-	void move();
+	void move(std::vector<SDL_Rect> p_colliders);
 	void handle_events(SDL_Event &p_event);
 
 protected:
-	const int m_diameter = 64;
-	int m_agent_vel = 10;
+	const int m_diameter = 55;
+	int m_agent_vel = 5;
 	int m_vel_x = 0, m_vel_y = 0;
-	Texture* m_texture = nullptr;
-	SDL_Rect m_dst = { 0, 0, 64, 64 };
+	SDL_Rect m_dst = {0, 0, 55, 55};
 };
 

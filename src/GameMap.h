@@ -3,12 +3,12 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "WindowRender.h"
+#include "Texture.h"
 
 #define MapWidth 20
 #define MapHeight 10
 
-enum texture_names
-{
+enum texture_names{
 	gr1, gr2, pv1, bw1
 };
 
@@ -18,19 +18,21 @@ public:
 	GameMap(WindowRender* p_window);
 	~GameMap();
 	SDL_Texture* render_map(WindowRender* p_window);
+	std::vector<SDL_Rect> get_colliders();
 
 private:
-	int m_Map[MapHeight][MapWidth] = {
-	gr1, gr1, gr2, gr1, gr2, gr2, gr2, gr1, pv1, bw1, gr1, gr1, gr2, gr1, gr2, gr2, gr2, gr1, pv1, bw1,	// 1
-	gr2, gr1, gr2, gr2, gr1, gr1, gr2, gr1, pv1, bw1, gr2, gr1, gr2, gr2, gr1, gr1, gr2, gr1, pv1, bw1,	// 2
-	pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, bw1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, bw1,	// 3
-	pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, bw1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, bw1,	// 4
-	gr1, gr2, gr2, gr1, pv1, pv1, gr1, gr2, pv1, bw1, gr1, gr2, gr2, gr1, pv1, pv1, gr1, gr2, pv1, bw1,	// 5
-	gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr1, pv1, bw1, gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr1, pv1, bw1,	// 6
-	gr2, gr1, gr2, gr1, pv1, pv1, gr2, gr2, pv1, bw1, gr2, gr1, gr2, gr1, pv1, pv1, gr2, gr2, pv1, bw1,	// 7
-	gr2, gr2, gr1, gr2, pv1, pv1, gr1, gr1, pv1, bw1, gr2, gr2, gr1, gr2, pv1, pv1, gr1, gr1, pv1, bw1,	// 8
-	gr1, gr1, gr1, gr2, pv1, pv1, gr2, gr1, pv1, bw1, gr1, gr1, gr1, gr2, pv1, pv1, gr2, gr1, pv1, bw1,	// 9
-	gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr2, pv1, bw1, gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr2, pv1, bw1	// 10
+	short int m_Map[MapHeight][MapWidth] = {
+	gr1, gr1, gr2, gr1, gr2, gr2, gr2, gr1, pv1, bw1, gr1, gr1, gr2, gr1, gr2, gr2, gr2, gr1, pv1, pv1,	// 1
+	gr2, gr1, gr2, gr2, gr1, gr1, gr2, gr1, pv1, bw1, gr2, gr1, gr2, gr2, gr1, gr1, gr2, gr1, pv1, pv1,	// 2
+	pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1,	// 3
+	pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1, pv1,	// 4
+	gr1, gr2, gr2, gr1, pv1, pv1, gr1, gr2, pv1, bw1, gr1, gr2, gr2, gr1, pv1, pv1, gr1, gr2, pv1, pv1,	// 5
+	gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr1, pv1, bw1, gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr1, pv1, pv1,	// 6
+	gr2, gr1, gr2, gr1, pv1, pv1, gr2, gr2, pv1, bw1, gr2, gr1, gr2, gr1, pv1, pv1, gr2, gr2, pv1, pv1,	// 7
+	gr2, gr2, gr1, gr2, pv1, pv1, gr1, gr1, pv1, bw1, gr2, gr2, gr1, gr2, pv1, pv1, gr1, gr1, pv1, pv1,	// 8
+	gr1, gr1, gr1, gr2, pv1, pv1, gr2, gr1, pv1, bw1, gr1, gr1, gr1, gr2, pv1, pv1, gr2, gr1, pv1, pv1,	// 9
+	gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr2, pv1, bw1, gr2, gr2, gr1, gr1, pv1, pv1, gr1, gr2, pv1, pv1	// 10
 	};
-	std::vector<SDL_Texture*> m_textures;
+	std::vector<Texture*> m_textures;
+	std::vector<SDL_Rect> m_colliders;
 };

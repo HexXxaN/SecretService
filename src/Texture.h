@@ -6,7 +6,7 @@
 class Texture
 {
 public:
-	Texture(WindowRender* p_window, const char* p_filePath, bool p_colorKey);
+	Texture(WindowRender* p_window, const char* p_filePath, bool p_colorKey = false);
 	~Texture();
 	SDL_Texture* get_texture();
 	SDL_Rect* get_src();
