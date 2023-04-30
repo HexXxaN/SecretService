@@ -30,13 +30,13 @@ SDL_Texture* GameMap::render_map(WindowRender* p_window){
 
 	SDL_Renderer* renderer = p_window->get_renderer();
 	SDL_Texture* mapTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
-		SDL_TEXTUREACCESS_TARGET, MapWidth * 64, MapHeight * 64);
+		SDL_TEXTUREACCESS_TARGET, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 
 	SDL_SetRenderTarget(renderer, mapTexture);
 	SDL_RenderClear(renderer);
 
-	for(int y = 0; y < MapHeight; y++){
-		for(int x = 0; x < MapWidth; x++){
+	for(int y = 0; y < LEVEL_HEIGHT; y++){
+		for(int x = 0; x < LEVEL_WIDTH; x++){
 
 			SDL_Rect dst = {x * 64, y * 64, 64, 64};
 
@@ -64,4 +64,13 @@ SDL_Texture* GameMap::render_map(WindowRender* p_window){
 
 std::vector<SDL_Rect> GameMap::get_colliders(){
 	return m_colliders;
+}
+
+void GameMap::scale_colliders(int p_scaleX, int p_scaleY){
+	for (auto& element : m_colliders){
+		element.x = element.x * p_scaleX;
+		element.y = element.y * p_scaleY;
+		element.w = element.w * p_scaleX;
+		element.h = element.h * p_scaleY;
+	}
 }

@@ -12,7 +12,6 @@ public:
 	SDL_Rect* get_src();
 
 private:
-	int m_width = 0, m_height = 0;
 	SDL_Rect m_src = {0, 0, 32, 32};
 	SDL_Texture* m_texture = nullptr;
 };

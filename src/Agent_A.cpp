@@ -5,7 +5,6 @@
 
 Agent_A::Agent_A() {
 	//Player has higher speed than the enemies
-	m_agent_vel = 10;
 }
 
 Agent_A::~Agent_A() {

@@ -4,12 +4,14 @@
 #include <vector>
 #include "Agent.h"
 #include "WindowRender.h"
-
-#define SCREEN_WIDTH 20*64
-#define SCREEN_HEIGHT 10*64
+#include "GameMap.h"
 
 SDL_Rect* Agent::get_dst() {
     return &m_dst;
+}
+
+int Agent::get_diameter() {
+    return m_Diameter;
 }
 
 void Agent::move(std::vector<SDL_Rect> p_colliders) {
@@ -22,9 +24,9 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
         m_dst.x = 0;
 
     //If the agent went too far to the right
-    if (m_dst.x > SCREEN_WIDTH - m_diameter)
+    if (m_dst.x > LEVEL_WIDTH * 64 - m_Diameter)
         //Move the agent to the right edge
-        m_dst.x = SCREEN_WIDTH - m_diameter;
+        m_dst.x = LEVEL_WIDTH * 64 - m_Diameter;
 
     //Move the agent up or down
     m_dst.y += m_vel_y;
@@ -35,9 +37,9 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
         m_dst.y = 0;
 
     //If the agent went too far down
-    if (m_dst.y > SCREEN_HEIGHT - m_diameter)
+    if (m_dst.y > LEVEL_HEIGHT * 64 - m_Diameter)
         //Move the agent to the lower edge
-        m_dst.y = SCREEN_HEIGHT - m_diameter;
+        m_dst.y = LEVEL_HEIGHT * 64 - m_Diameter;
 
     //TODO
     //__________COLLISION DETECTION__________
@@ -59,23 +61,21 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
 
         //If there is no separation then adjust the position of the agent
         if (collision) {
-
-
             //________THIS WORKS, BUT NOT AS GOOD AS I WISH____________
-            //if (m_vel_x > 0 && !m_vel_y)
-            //    m_dst.x = obsticle.x - m_diameter;
-            //if (m_vel_x < 0 && !m_vel_y)
-            //    m_dst.x = obsticle.x + obsticle.w;
+            if (m_vel_x > 0 && !m_vel_y)
+                m_dst.x = obsticle.x - m_Diameter;
+            if (m_vel_x < 0 && !m_vel_y)
+                m_dst.x = obsticle.x + obsticle.w;
 
-            //if (m_vel_y > 0 && !m_vel_x)
-            //    m_dst.y = obsticle.y - m_diameter;
-            //if (m_vel_y < 0 && !m_vel_x)
-            //    m_dst.y = obsticle.y + obsticle.h;
+            if (m_vel_y > 0 && !m_vel_x)
+                m_dst.y = obsticle.y - m_Diameter;
+            if (m_vel_y < 0 && !m_vel_x)
+                m_dst.y = obsticle.y + obsticle.h;
 
-            //if (m_vel_x && m_vel_y) {
-            //    m_dst.x -= m_vel_x;
-            //    m_dst.y -= m_vel_y;
-            //}
+            if (m_vel_x && m_vel_y) {
+                m_dst.x -= m_vel_x;
+                m_dst.y -= m_vel_y;
+            }
             //_____________________________________________________________
         }
         //__________________________________________
