@@ -65,12 +65,3 @@ SDL_Texture* GameMap::render_map(WindowRender* p_window){
 std::vector<SDL_Rect> GameMap::get_colliders(){
 	return m_colliders;
 }
-
-void GameMap::scale_colliders(int p_scaleX, int p_scaleY){
-	for (auto& element : m_colliders){
-		element.x = element.x * p_scaleX;
-		element.y = element.y * p_scaleY;
-		element.w = element.w * p_scaleX;
-		element.h = element.h * p_scaleY;
-	}
-}

@@ -6,11 +6,12 @@
 #include "WindowRender.h"
 #include "GameMap.h"
 
+
 SDL_Rect* Agent::get_dst() {
     return &m_dst;
 }
 
-int Agent::get_diameter() {
+short int Agent::get_diameter() {
     return m_Diameter;
 }
 
@@ -64,9 +65,8 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
             //________THIS WORKS, BUT NOT AS GOOD AS I WISH____________
             if (m_vel_x > 0 && !m_vel_y)
                 m_dst.x = obsticle.x - m_Diameter;
-            if (m_vel_x < 0 && !m_vel_y)
+            if (m_vel_x < 0 && !m_vel_y) 
                 m_dst.x = obsticle.x + obsticle.w;
-
             if (m_vel_y > 0 && !m_vel_x)
                 m_dst.y = obsticle.y - m_Diameter;
             if (m_vel_y < 0 && !m_vel_x)
@@ -76,7 +76,6 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
                 m_dst.x -= m_vel_x;
                 m_dst.y -= m_vel_y;
             }
-            //_____________________________________________________________
         }
         //__________________________________________
         //Find the closest x coordinate of the obsticle
@@ -119,7 +118,7 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
     }
 }
 
-void Agent::handle_events(SDL_Event& p_event){
+void Agent::handle_events(SDL_Event& p_event) {
 
     if (p_event.type == SDL_KEYDOWN && p_event.key.repeat == 0)
         //Adjust the velocity
@@ -133,24 +132,30 @@ void Agent::handle_events(SDL_Event& p_event){
         case SDLK_a:
             m_vel_x -= m_agent_vel;
             break;
-        case SDLK_d:
+        case SDLK_d :
             m_vel_x += m_agent_vel;
+            break;
+            //_______TEST_________
+        case SDLK_LSHIFT:
+            if (!m_timer) {
+                m_timer = SDL_GetTicks();
+            }
             break;
         }
     //If a key was released
-	else if (p_event.type == SDL_KEYUP && p_event.key.repeat == 0)
-		switch(p_event.key.keysym.sym) {
-		case SDLK_w:
-			m_vel_y += m_agent_vel;
-			break;
-		case SDLK_s:
-			m_vel_y -= m_agent_vel;
-			break;
-		case SDLK_a:
-			m_vel_x += m_agent_vel;
-			break;
-		case SDLK_d:
+    else if (p_event.type == SDL_KEYUP && p_event.key.repeat == 0)
+        switch (p_event.key.keysym.sym) {
+        case SDLK_w:
+            m_vel_y += m_agent_vel;
+            break;
+        case SDLK_s:
+            m_vel_y -= m_agent_vel;
+            break;
+        case SDLK_a:
+            m_vel_x += m_agent_vel;
+            break;
+        case SDLK_d:
             m_vel_x -= m_agent_vel;
-			break;
-		}
+            break;
+        }
 }

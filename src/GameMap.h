@@ -5,12 +5,15 @@
 #include "WindowRender.h"
 #include "Texture.h"
 
+
 #define LEVEL_WIDTH 30
 #define LEVEL_HEIGHT 20
+
 
 enum texture_names{
 	gr1, gr2, pv1, bw1
 };
+
 
 class GameMap
 {
@@ -19,7 +22,6 @@ public:
 	~GameMap();
 	SDL_Texture* render_map(WindowRender* p_window);
 	std::vector<SDL_Rect> get_colliders();
-	void scale_colliders(int p_scaleX, int p_scaleY); //TODO
 
 private:
 	Uint8 m_Map[LEVEL_HEIGHT][LEVEL_WIDTH] = {

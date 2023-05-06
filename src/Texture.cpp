@@ -27,7 +27,3 @@ Texture::~Texture(){
 SDL_Texture* Texture::get_texture(){
 	return m_texture;
 }
-
-SDL_Rect* Texture::get_src(){
-	return &m_src;
-}

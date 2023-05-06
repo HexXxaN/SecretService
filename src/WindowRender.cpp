@@ -6,8 +6,6 @@
 WindowRender::WindowRender(const char* p_title, int p_width, int p_height) {
 	m_window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_width, p_height, SDL_WINDOW_SHOWN);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
-	m_width = p_width;
-	m_height = p_height;
 }
 
 WindowRender::~WindowRender(){
@@ -23,27 +21,15 @@ SDL_Renderer* WindowRender::get_renderer(){
 	return m_renderer;
 }
 
-int WindowRender::get_width(){
-	return m_width;
-}
-
-int WindowRender::get_height() {
-	return m_height;
-}
-
-bool WindowRender::is_minimized(){
-	return m_minimized;
-}
-
 void WindowRender::clear(){
 	SDL_RenderClear(m_renderer);
 }
 
-void WindowRender::render(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst) {
+void WindowRender::render_map(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst) {
 	SDL_RenderCopy(m_renderer, p_texture, p_src, p_dst);
 }
 
-void WindowRender::render_player(SDL_Texture* p_texture, SDL_Rect* p_dst, SDL_Rect* p_camera){
+void WindowRender::render_entity(SDL_Texture* p_texture, SDL_Rect* p_dst, SDL_Rect* p_camera){
 	SDL_Rect drawingRect = { p_dst->x - p_camera->x, p_dst->y - p_camera->y, p_dst->w, p_dst->h };
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &drawingRect);
 }
