@@ -1,8 +1,8 @@
-# ignore SecretService file that was created by Visual Studio
-SecretService
-
 # ignore x64 file
 x64
+
+# ignore test file
+test
 
 # ignore all .vs files
 *.vs
