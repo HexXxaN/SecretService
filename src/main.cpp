@@ -12,8 +12,8 @@
 #include "utils.h"
 
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 900
 
 
 int main(int argc, char* argv[]) {
