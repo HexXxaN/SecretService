@@ -7,11 +7,5 @@ x64
 # ignore all .vs files
 *.vs
 
-# ignore all .vcxproj files
-*.vcxproj
-
-# ignore all .filters files
-*.filters
-
 # ignore all .user files
 *.user
