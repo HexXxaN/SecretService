@@ -17,8 +17,11 @@ public:
 protected:
 	const short int m_Diameter = 55;
 	short int m_agent_vel = 5;
-	short int m_vel_x = 0, m_vel_y = 0;
-	Uint32 m_timer = 0;
+	unsigned int m_timer = 0;
 	SDL_Rect m_dst = { 0, 0, m_Diameter, m_Diameter };
+	bool m_moveUp = false;
+	bool m_moveDown = false;
+	bool m_moveLeft = false;
+	bool m_moveRight = false;
 };
 
