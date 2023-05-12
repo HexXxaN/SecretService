@@ -25,7 +25,7 @@ void WindowRender::clear(){
 	SDL_RenderClear(m_renderer);
 }
 
-void WindowRender::render_map(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst) {
+void WindowRender::render_texture(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst) {
 	SDL_RenderCopy(m_renderer, p_texture, p_src, p_dst);
 }
 

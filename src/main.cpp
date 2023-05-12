@@ -30,12 +30,14 @@ int main(int argc, char* argv[]) {
 	GameMap* gameMap = new GameMap(window);
 
 	//Create player
-	Agent* player = new Agent_A();
+	Agent* player = nullptr;
 
-	//Create player texture
+	//Load player texture
 	Texture* playerTex = new Texture(window, "../res/gfx/player_dot.png", true);
 	//Create enemy texture
 	Texture* enemyTex = new Texture(window, "../res/gfx/enemy_dot.png", true);
+	//Create intro texture
+	Texture* intro = new Texture(window, "../res/gfx/intro.png");
 
 	//Create map texture using gameMap object. The object contains colliders required to detect collisions
 	SDL_Texture* mapTexture = gameMap->render_map(window);
@@ -46,11 +48,42 @@ int main(int argc, char* argv[]) {
 	//_________________TEST__________________
 	Enemy* en1 = new Enemy({ 100, 100 }, { 300, 500 });
 
+	//Create a variable that's true when the intro is running
+	bool introRunning = true;
 	//Create a variable that's true when the game is running to run the main loop
 	bool gameRunning = true;
 	//Create a variable that's responsible for handling events
 	SDL_Event event;
+	
+	//________________INTRO____________________
+	while (introRunning) {
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				introRunning = false;
+				gameRunning = false;
+			}
 
+			if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+				case SDLK_1:
+					player = new Agent_A();
+					introRunning = false;
+					break;
+				case SDLK_2:
+					player = new Agent_B();
+					introRunning = false;
+					break;
+				}
+			}
+
+		}
+
+		window->clear();
+		window->render_texture(intro->get_texture(), nullptr, nullptr);
+		window->display();
+	}
+
+	delete intro;
 
 	//______________MAIN LOOP__________________
 	while (gameRunning) {
@@ -66,7 +99,7 @@ int main(int argc, char* argv[]) {
 		en1->move();
 		handle_camera(camera, player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
-		window->render_map(mapTexture, &camera, nullptr);
+		window->render_texture(mapTexture, &camera, nullptr);
 		window->render_entity(enemyTex->get_texture(), en1->get_dst(), &camera);
 		window->render_entity(playerTex->get_texture(), player->get_dst(), &camera);
 		window->display();
