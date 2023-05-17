@@ -1,6 +1,21 @@
 #pragma once
 #include "utils.h"
 
+
+std::vector<Enemy*> create_enemies()
+{
+	Enemy* en1 = new Enemy( {100, 100}, {300, 500} );
+	Enemy* en2 = new Enemy( {300, 500}, {100, 700} );
+
+	std::vector<Enemy*> enemies;
+
+	enemies.push_back(en1);
+	enemies.push_back(en2);
+
+	return enemies;
+}
+
+
 void handle_camera(SDL_Rect& p_camera, Agent* p_player, int p_LevelWidth, int p_LevelHeight){
 	float diameter = p_player->get_diameter();
 	//Focus the camera on the player

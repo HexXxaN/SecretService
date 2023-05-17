@@ -11,6 +11,11 @@ SDL_Rect* Agent::get_dst() {
     return &m_dst;
 }
 
+Point Agent::get_dotCenter()
+{
+    return m_dotCenter;
+}
+
 short int Agent::get_diameter() {
     return m_Diameter;
 }
@@ -51,30 +56,30 @@ void Agent::move(std::vector<SDL_Rect> p_colliders) {
 
 
     //__________COLLISION DETECTION__________
-    int dotCenterX = m_dst.x + (0.5 + m_Diameter / 2) + 1;
-    int dotCenterY = m_dst.y + (0.5 + m_Diameter / 2) + 1;
+    m_dotCenter.x = m_dst.x + (0.5 + m_Diameter / 2) + 1;
+    m_dotCenter.y = m_dst.y + (0.5 + m_Diameter / 2) + 1;
     int closestX, closestY;
 
     for (auto &obsticle : p_colliders) {
         //Find the closest x coordinate of the obsticle
-        if (dotCenterX < obsticle.x)
+        if (m_dotCenter.x < obsticle.x)
             closestX = obsticle.x;
-        else if (dotCenterX > obsticle.x + obsticle.w)
+        else if (m_dotCenter.x > obsticle.x + obsticle.w)
             closestX = obsticle.x + obsticle.w;
         else
-            closestX = dotCenterX;
+            closestX = m_dotCenter.x;
 
         //Find the closest y coordinate of the obsticle
-        if (dotCenterY < obsticle.y)
+        if (m_dotCenter.y < obsticle.y)
             closestY = obsticle.y;
-        else if (dotCenterY > obsticle.y + obsticle.h)
+        else if (m_dotCenter.y > obsticle.y + obsticle.h)
             closestY = obsticle.y + obsticle.h;
         else
-            closestY = dotCenterY;
+            closestY = m_dotCenter.y;
 
         //Checking if the closest point is inside the circle from Pythagorean theorem
-        int deltaX = closestX - dotCenterX;
-        int deltaY = closestY - dotCenterY;
+        int deltaX = closestX - m_dotCenter.x;
+        int deltaY = closestY - m_dotCenter.y;
         if (deltaX * deltaX + deltaY * deltaY < m_Diameter * m_Diameter / 4) {
             if (tmp.x <= obsticle.x - m_Diameter && tmp.y >= obsticle.y - m_Diameter && tmp.y <= obsticle.y + obsticle.h)
                 m_dst.x = obsticle.x - m_Diameter;
@@ -105,11 +110,9 @@ void Agent::handle_events(SDL_Event& p_event) {
         case SDLK_d :
             m_moveRight = true;
             break;
-            //_______TEST_________
         case SDLK_LSHIFT:
-            if (!m_timer) {
+            if (!m_timer)
                 m_timer = SDL_GetTicks();
-            }
             break;
         }
     //If a key was released

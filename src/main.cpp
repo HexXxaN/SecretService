@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 	std::vector<SDL_Rect> colliders = gameMap->get_colliders();
 
 	//_________________TEST__________________
-	Enemy* en1 = new Enemy({ 100, 100 }, { 300, 500 });
+	std::vector<Enemy*> enemies = create_enemies();
 
 	//Create a variable that's true when the intro is running
 	bool introRunning = true;
@@ -96,23 +96,26 @@ int main(int argc, char* argv[]) {
 
 		player->move(colliders);
 		player->handle_special_ability();
-		en1->move();
+		for (auto& enemy : enemies)
+			enemy->move();
 		handle_camera(camera, player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
 		window->render_texture(mapTexture, &camera, nullptr);
-		window->render_entity(enemyTex->get_texture(), en1->get_dst(), &camera);
+		for (auto &enemy : enemies)
+			window->render_entity(enemyTex->get_texture(), enemy->get_dst(), &camera);
 		window->render_entity(playerTex->get_texture(), player->get_dst(), &camera);
 		window->display();
 	}
 	//_________END OF THE MAIN LOOP_____________
 
-
 	SDL_DestroyTexture(mapTexture);
+	
+	for (auto& enemy : enemies)
+		delete enemy;
 
-	delete enemyTex;
-	delete en1;
-	delete playerTex;
 	delete player;
+	delete enemyTex;
+	delete playerTex;
 	delete gameMap;
 	delete window;
 	
