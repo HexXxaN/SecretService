@@ -21,7 +21,7 @@ public:
 	GameMap(WindowRender* p_window);
 	~GameMap();
 	SDL_Texture* render_map(WindowRender* p_window);
-	std::vector<SDL_Rect> get_colliders();
+	inline std::vector<SDL_Rect> get_colliders() { return m_colliders; }
 
 private:
 	Uint8 m_Map[LEVEL_HEIGHT][LEVEL_WIDTH] = {

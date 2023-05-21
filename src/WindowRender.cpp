@@ -6,6 +6,7 @@
 WindowRender::WindowRender(const char* p_title, int p_width, int p_height) {
 	m_window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_width, p_height, SDL_WINDOW_SHOWN);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
+	m_Camera.set_camera({ 0 , 0, p_width, p_height });
 }
 
 WindowRender::~WindowRender(){
@@ -13,12 +14,7 @@ WindowRender::~WindowRender(){
 }
 
 SDL_Texture* WindowRender::load_texture(const char* p_filePath){
-	SDL_Texture* texture = IMG_LoadTexture(m_renderer, p_filePath);
-	return texture;
-}
-
-SDL_Renderer* WindowRender::get_renderer(){
-	return m_renderer;
+	return IMG_LoadTexture(m_renderer, p_filePath);
 }
 
 void WindowRender::clear(){
@@ -29,8 +25,13 @@ void WindowRender::render_texture(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_R
 	SDL_RenderCopy(m_renderer, p_texture, p_src, p_dst);
 }
 
-void WindowRender::render_entity(SDL_Texture* p_texture, SDL_Rect* p_dst, SDL_Rect* p_camera){
-	SDL_Rect drawingRect = { p_dst->x - p_camera->x, p_dst->y - p_camera->y, p_dst->w, p_dst->h };
+void WindowRender::render_MovableCircularObject(SDL_Texture* p_texture, MovableCircularObject* p_entity){
+	unsigned short int diameter = p_entity->get_Diameter();
+	unsigned short int radius = p_entity->get_radius();
+	Point playerCenter = p_entity->get_dotCenter();
+	SDL_Rect camera = m_Camera.get_camera();
+
+	SDL_Rect drawingRect = { playerCenter.x - radius - camera.x, playerCenter.y - radius - camera.y, diameter, diameter};
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &drawingRect);
 }
 

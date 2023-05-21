@@ -6,7 +6,7 @@
 
 void Agent_A::handle_special_ability() {
 	if (m_timer && SDL_GetTicks() - m_timer <= 2000)
-		m_agent_vel = 10;
+		m_vel = 10;
 	else 
-		m_agent_vel = 6;
+		m_vel = 6;
 }

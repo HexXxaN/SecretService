@@ -1,0 +1,19 @@
+#pragma once
+
+struct Point {
+	short int x, y;
+};
+
+class MovableCircularObject 
+{
+public:
+	inline unsigned short int get_Diameter() const { return m_Diameter; }
+	inline unsigned short int get_radius() const { return m_radius; }
+	inline Point get_dotCenter() const { return m_dotCenter; }
+
+protected:
+	const unsigned short int m_Diameter = 55;
+	unsigned short int m_radius = m_Diameter / 2;
+	short unsigned int m_vel = 5;
+	Point m_dotCenter = { 100, 100 };
+};

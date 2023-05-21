@@ -13,5 +13,6 @@ public:
 
 private:
 	SDL_Rect m_src = { 0, 0, 32, 32 };
+	SDL_Rect m_dst;
 	SDL_Texture* m_texture = nullptr;
 };

@@ -1,33 +1,31 @@
 #pragma once
 #include <SDL.h>
 #include <vector>
-#include "Texture.h"
-#include "WindowRender.h"
+#include "MovableCircularObject.h"
+#include "Collider.h"
 
-#include <iostream>
-
-struct Point {
-	short int x, y;
-};
-
-class Agent
+class Agent : public MovableCircularObject
 {
 public:
-	short int get_diameter();
-	void move(std::vector<SDL_Rect> p_colliders);
-	void handle_events(SDL_Event &p_event);
-	SDL_Rect* get_dst();
-	Point get_dotCenter();
+	inline bool get_moveUp() const { return m_moveUp; }
+	inline bool get_moveDown() const { return m_moveDown; }
+	inline bool get_moveLeft() const { return m_moveLeft; };
+	inline bool get_moveRight() const { return m_moveRight; }
+	inline unsigned int get_timer() const { return m_timer; }
+
+	inline void set_moveUp(bool p_val) { m_moveUp = p_val; }
+	inline void set_moveDown(bool p_val) { m_moveDown = p_val; }
+	inline void set_moveLeft(bool p_val) { m_moveLeft = p_val; }
+	inline void set_moveRight(bool p_val) { m_moveRight = p_val; }
+	inline void set_timer(unsigned int p_val) { m_timer = p_val; }
+
 	virtual void handle_special_ability() {}
+	void move(Collider* p_Colliders);
 
 protected:
-	const short int m_Diameter = 55;
-	short int m_agent_vel = 5;
-	unsigned int m_timer = 0;
-	SDL_Rect m_dst = { 0, 0, m_Diameter, m_Diameter };
-	Point m_dotCenter;
 	bool m_moveUp = false;
 	bool m_moveDown = false;
 	bool m_moveLeft = false;
 	bool m_moveRight = false;
+	unsigned int m_timer = 0;
 };

@@ -69,7 +69,3 @@ SDL_Texture* GameMap::render_map(WindowRender* p_window){
 	SDL_SetRenderTarget(renderer, nullptr);
 	return mapTexture;
 }
-
-std::vector<SDL_Rect> GameMap::get_colliders(){
-	return m_colliders;
-}

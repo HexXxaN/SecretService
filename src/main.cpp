@@ -9,7 +9,8 @@
 #include "Agent_A.h"
 #include "Agent_B.h"
 #include "Enemy.h"
-#include "utils.h"
+#include "EventHandler.h"
+#include "Collider.h"
 
 
 #define SCREEN_WIDTH 1600
@@ -22,9 +23,6 @@ int main(int argc, char* argv[]) {
 
 	//Create window renderer called "Secret Service"
 	WindowRender* window = new WindowRender("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	//Create camera
-	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//Create game map
 	GameMap* gameMap = new GameMap(window);
@@ -42,29 +40,27 @@ int main(int argc, char* argv[]) {
 	//Create map texture using gameMap object. The object contains colliders required to detect collisions
 	SDL_Texture* mapTexture = gameMap->render_map(window);
 
-	//Create vector of colliders created by gameMap object
-	std::vector<SDL_Rect> colliders = gameMap->get_colliders();
-
-	//_________________TEST__________________
-	std::vector<Enemy*> enemies = create_enemies();
+	Collider* colliders = new Collider();
+	colliders->set_colliders(gameMap->get_colliders());
 
 	//Create a variable that's true when the intro is running
 	bool introRunning = true;
 	//Create a variable that's true when the game is running to run the main loop
 	bool gameRunning = true;
 	//Create a variable that's responsible for handling events
-	SDL_Event event;
+
+	EventHandler events;
 	
 	//________________INTRO____________________
 	while (introRunning) {
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
+		while (events.while_events()) {
+			if (events.get_event().type == SDL_QUIT) {
 				introRunning = false;
 				gameRunning = false;
 			}
 
-			if (event.type == SDL_KEYDOWN) {
-				switch (event.key.keysym.sym) {
+			if (events.get_event().type == SDL_KEYDOWN) {
+				switch (events.get_event().key.keysym.sym) {
 				case SDLK_1:
 					player = new Agent_A();
 					introRunning = false;
@@ -75,7 +71,6 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 			}
-
 		}
 
 		window->clear();
@@ -87,32 +82,27 @@ int main(int argc, char* argv[]) {
 
 	//______________MAIN LOOP__________________
 	while (gameRunning) {
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT)
+
+		while (events.while_events()) {
+			if (events.get_event().type == SDL_QUIT)
 				gameRunning = false;
 
-			player->handle_events(event);
+			events.handle_events(player);
 		}
 
 		player->move(colliders);
 		player->handle_special_ability();
-		for (auto& enemy : enemies)
-			enemy->move();
-		handle_camera(camera, player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
+		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
-		window->render_texture(mapTexture, &camera, nullptr);
-		for (auto &enemy : enemies)
-			window->render_entity(enemyTex->get_texture(), enemy->get_dst(), &camera);
-		window->render_entity(playerTex->get_texture(), player->get_dst(), &camera);
+		window->render_texture(mapTexture, window->get_Camera()->get_cameraPtr(), nullptr);
+		window->render_MovableCircularObject(playerTex->get_texture(), player);
 		window->display();
 	}
 	//_________END OF THE MAIN LOOP_____________
 
 	SDL_DestroyTexture(mapTexture);
-	
-	for (auto& enemy : enemies)
-		delete enemy;
 
+	delete colliders;
 	delete player;
 	delete enemyTex;
 	delete playerTex;
