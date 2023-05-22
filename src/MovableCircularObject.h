@@ -11,6 +11,8 @@ public:
 	inline unsigned short int get_radius() const { return m_radius; }
 	inline Point get_dotCenter() const { return m_dotCenter; }
 
+	inline void set_dotCenter(Point p_dotCenter) { m_dotCenter = p_dotCenter; }
+
 protected:
 	const unsigned short int m_Diameter = 55;
 	unsigned short int m_radius = m_Diameter / 2;

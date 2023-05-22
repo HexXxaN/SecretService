@@ -10,6 +10,7 @@ GameMap::GameMap(WindowRender* p_window){
 	//Loading map texutres
 	Texture* grass1 = new Texture(p_window, "../res/gfx/ground_grass_1.png");
 	Texture* grass2 = new Texture(p_window, "../res/gfx/ground_grass_2.png");
+	Texture* grass3 = new Texture(p_window, "../res/gfx/ground_grass_3.png");
 	Texture* pavement = new Texture(p_window, "../res/gfx/ground_pavement_1.png");
 	Texture* brick1 = new Texture(p_window, "../res/gfx/brick_wall_1.png");
 	Texture* wooden_floor = new Texture(p_window, "../res/gfx/wooden_floor.png");
@@ -19,6 +20,7 @@ GameMap::GameMap(WindowRender* p_window){
 	//Stacking map textures in a vector
 	m_textures.push_back(grass1);
 	m_textures.push_back(grass2);
+	m_textures.push_back(grass3);
 	m_textures.push_back(pavement);
 	m_textures.push_back(wooden_floor);
 	m_textures.push_back(brick1);
@@ -51,6 +53,9 @@ SDL_Texture* GameMap::render_map(WindowRender* p_window){
 				break;
 			case gr2:
 				SDL_RenderCopy(renderer, m_textures[gr2]->get_texture(), nullptr, &dst);
+				break;
+			case gr3:
+				SDL_RenderCopy(renderer, m_textures[gr3]->get_texture(), nullptr, &dst);
 				break;
 			case pv1:
 				SDL_RenderCopy(renderer, m_textures[pv1]->get_texture(), nullptr, &dst);

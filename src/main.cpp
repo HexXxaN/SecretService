@@ -10,7 +10,7 @@
 #include "Agent_B.h"
 #include "Enemy.h"
 #include "EventHandler.h"
-#include "Collider.h"
+#include "CollisionDetector.h"
 
 
 #define SCREEN_WIDTH 1600
@@ -40,8 +40,8 @@ int main(int argc, char* argv[]) {
 	//Create map texture using gameMap object. The object contains colliders required to detect collisions
 	SDL_Texture* mapTexture = gameMap->render_map(window);
 
-	Collider* colliders = new Collider();
-	colliders->set_colliders(gameMap->get_colliders());
+	CollisionDetector* collisionDetector = new CollisionDetector();
+	collisionDetector->set_colliders(gameMap->get_colliders());
 
 	//Create a variable that's true when the intro is running
 	bool introRunning = true;
@@ -90,11 +90,12 @@ int main(int argc, char* argv[]) {
 			events.handle_events(player);
 		}
 
-		player->move(colliders);
+		collisionDetector->manage_collisions(player);
 		player->handle_special_ability();
 		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
-		window->render_texture(mapTexture, window->get_Camera()->get_cameraPtr(), nullptr);
+		SDL_Rect camera_tmp = window->get_Camera()->get_camera();
+		window->render_texture(mapTexture, &camera_tmp, nullptr);
 		window->render_MovableCircularObject(playerTex->get_texture(), player);
 		window->display();
 	}
@@ -102,7 +103,7 @@ int main(int argc, char* argv[]) {
 
 	SDL_DestroyTexture(mapTexture);
 
-	delete colliders;
+	delete collisionDetector;
 	delete player;
 	delete enemyTex;
 	delete playerTex;
