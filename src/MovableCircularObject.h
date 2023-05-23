@@ -14,7 +14,7 @@ public:
 	inline void set_dotCenter(Point p_dotCenter) { m_dotCenter = p_dotCenter; }
 
 protected:
-	const unsigned short int m_Diameter = 55;
+	const unsigned int m_Diameter = 55;
 	unsigned short int m_radius = m_Diameter / 2;
 	short unsigned int m_vel = 5;
 	Point m_dotCenter = { 100, 100 };

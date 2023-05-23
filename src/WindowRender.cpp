@@ -34,7 +34,3 @@ void WindowRender::render_MovableCircularObject(SDL_Texture* p_texture, MovableC
 	SDL_Rect drawingRect = { playerCenter.x - radius - camera.x, playerCenter.y - radius - camera.y, diameter, diameter};
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &drawingRect);
 }
-
-void WindowRender::display(){
-	SDL_RenderPresent(m_renderer);
-}

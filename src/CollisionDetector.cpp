@@ -33,10 +33,10 @@ void CollisionDetector::manage_collisions(Agent* p_player) {
         //Checking if the closest point is inside the circle from Pythagorean theorem
         int deltaX = closestX - dotCenter.x;
         int deltaY = closestY - dotCenter.y;
-        //If collision occured
+        //If collision occured 
         if (deltaX * deltaX + deltaY * deltaY < radius * radius) {
             //If the player was to the left of an obsticle
-            if (tmp.x <= obsticle.x - radius && tmp.y >= obsticle.y - radius && tmp.y <= obsticle.y + obsticle.h + radius)
+            if (tmp.x <= obsticle.x - radius / 2 && tmp.y >= obsticle.y - radius && tmp.y <= obsticle.y + obsticle.h + radius)
                 //Move to the left edge
                 dotCenter.x = obsticle.x - radius;
             //If the player was to the right of an obsticle
