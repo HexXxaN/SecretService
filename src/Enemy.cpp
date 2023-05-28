@@ -3,7 +3,11 @@
 #include <iostream>
 
 //initializing static Point m_playerPos
-Point Enemy::m_playerPos;
+Point Enemy::m_playerPos = { -1, -1 };
+
+
+void Enemy::move(){}
+
 
 bool Enemy::detect_player(Point p_playerPos) {
 	int deltaX = m_dotCenter.x - p_playerPos.x;

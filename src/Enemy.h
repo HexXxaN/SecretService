@@ -5,6 +5,7 @@
 class Enemy : public MovableCircularObject
 {
 public:
+	void move();
 	bool detect_player(Point p_playerPos);
 
 private:

@@ -16,7 +16,7 @@ public:
 	SDL_Texture* load_texture(const char* p_filePath);
 	void clear();
 	void render_texture(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst);
-	void render_MovableCircularObject(SDL_Texture* p_texture, MovableCircularObject* p_entity);
+	void render_player(SDL_Texture* p_texture, Agent* p_player);
 	inline void display() { SDL_RenderPresent(m_renderer); }
 
 private:

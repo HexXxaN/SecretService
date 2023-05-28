@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
 		window->clear();
 		SDL_Rect camera_tmp = window->get_Camera()->get_camera();
 		window->render_texture(mapTexture, &camera_tmp, nullptr);
-		window->render_MovableCircularObject(playerTex->get_texture(), player);
+		window->render_player(playerTex->get_texture(), player);
 		window->display();
 	}
 	//_________END OF THE MAIN LOOP_____________

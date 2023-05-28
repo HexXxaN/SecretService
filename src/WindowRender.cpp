@@ -11,6 +11,7 @@ WindowRender::WindowRender(const char* p_title, int p_width, int p_height) {
 
 WindowRender::~WindowRender(){
 	SDL_DestroyWindow(m_window);
+	SDL_DestroyRenderer(m_renderer);
 }
 
 SDL_Texture* WindowRender::load_texture(const char* p_filePath){
@@ -25,10 +26,10 @@ void WindowRender::render_texture(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_R
 	SDL_RenderCopy(m_renderer, p_texture, p_src, p_dst);
 }
 
-void WindowRender::render_MovableCircularObject(SDL_Texture* p_texture, MovableCircularObject* p_entity){
-	unsigned short int diameter = p_entity->get_Diameter();
-	unsigned short int radius = p_entity->get_radius();
-	Point playerCenter = p_entity->get_dotCenter();
+void WindowRender::render_player(SDL_Texture* p_texture, Agent* p_player){
+	unsigned short int diameter = p_player->get_Diameter();
+	unsigned short int radius = p_player->get_radius();
+	Point playerCenter = p_player->get_dotCenter();
 	SDL_Rect camera = m_Camera.get_camera();
 
 	SDL_Rect drawingRect = { playerCenter.x - radius - camera.x, playerCenter.y - radius - camera.y, diameter, diameter};

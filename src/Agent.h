@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL.h>
 #include <vector>
 #include "MovableCircularObject.h"
 #include "Timer.h"
