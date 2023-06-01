@@ -5,7 +5,6 @@
 class EventHandler 
 {
 public:
-
 	inline SDL_Event get_event() const { return m_event; }
 
 	inline bool while_events() { return SDL_PollEvent(&m_event); };

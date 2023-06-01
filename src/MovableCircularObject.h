@@ -1,8 +1,5 @@
 #pragma once
-
-struct Point {
-	short int x, y;
-};
+#include "Point.h"
 
 class MovableCircularObject 
 {

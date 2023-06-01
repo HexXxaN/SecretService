@@ -14,16 +14,13 @@ WindowRender::~WindowRender(){
 	SDL_DestroyRenderer(m_renderer);
 }
 
-SDL_Texture* WindowRender::load_texture(const char* p_filePath){
-	return IMG_LoadTexture(m_renderer, p_filePath);
+void WindowRender::render_static_texture(SDL_Texture* p_texture, Point p_origin) {
+	SDL_Rect dst = { p_origin.x, p_origin.y, 64, 64 };
+	SDL_RenderCopy(m_renderer, p_texture, nullptr, &dst);
 }
 
-void WindowRender::clear(){
-	SDL_RenderClear(m_renderer);
-}
-
-void WindowRender::render_texture(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst) {
-	SDL_RenderCopy(m_renderer, p_texture, p_src, p_dst);
+void WindowRender::render_static_texture(SDL_Texture* p_mapTexture, SDL_Rect* p_src, SDL_Rect* p_dst){
+	SDL_RenderCopy(m_renderer, p_mapTexture, p_src, p_dst);
 }
 
 void WindowRender::render_player(SDL_Texture* p_texture, Agent* p_player){

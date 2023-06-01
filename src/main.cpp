@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
 	SDL_Texture* mapTexture = gameMap->render_map(window);
 
 	CollisionDetector* collisionDetector = new CollisionDetector();
-	collisionDetector->set_colliders(gameMap->get_colliders());
+	//collisionDetector->set_colliders(gameMap->get_colliders());
 
 	//Create a variable that's true when the intro is running
 	bool introRunning = true;
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		window->clear();
-		window->render_texture(intro->get_texture(), nullptr, nullptr);
+		window->render_static_texture(intro->get_texture(), nullptr, nullptr);
 		window->display();
 	}
 
@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
 		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
 		SDL_Rect camera_tmp = window->get_Camera()->get_camera();
-		window->render_texture(mapTexture, &camera_tmp, nullptr);
+		window->render_static_texture(mapTexture, &camera_tmp, nullptr);
 		window->render_player(playerTex->get_texture(), player);
 		window->display();
 	}

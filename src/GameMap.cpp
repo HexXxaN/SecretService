@@ -6,7 +6,43 @@
 #include "WindowRender.h"
 
 GameMap::GameMap(WindowRender* p_window){
-	
+	this->load_textures(p_window);
+	this->load_staticRectangularObjects();
+}
+
+GameMap::~GameMap(){
+	for (auto& object : m_staticRectangularObjects) {
+		delete object;
+		object = nullptr;
+	}
+
+	for (auto& texture : m_textures) {
+		delete texture;
+		texture = nullptr;
+	}
+}
+
+SDL_Texture* GameMap::render_map(WindowRender* p_window){
+
+	SDL_Renderer* renderer = p_window->get_renderer();
+	SDL_Texture* mapTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
+
+	SDL_SetRenderTarget(renderer, mapTexture);
+	SDL_RenderClear(renderer);
+
+	SDL_Rect map = { 0, 0, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64 };
+
+	p_window->render_static_texture(m_textures[gr3]->get_texture(), nullptr, &map);
+
+	for (auto& object : m_staticRectangularObjects)
+		object->render_object(p_window);
+
+	SDL_SetRenderTarget(renderer, nullptr);
+	return mapTexture;
+}
+
+void GameMap::load_textures(WindowRender* p_window) {
 	//Loading map texutres
 	Texture* grass1 = new Texture(p_window, "../res/gfx/ground_grass_1.png");
 	Texture* grass2 = new Texture(p_window, "../res/gfx/ground_grass_2.png");
@@ -27,50 +63,15 @@ GameMap::GameMap(WindowRender* p_window){
 	m_textures.push_back(finish);
 }
 
-GameMap::~GameMap(){
-	for(int i = m_textures.size(); i > 0; i--)
-		// .size() returns the size of the vector, and thus we need do decrement it by 1 to get to the last variable
-		delete m_textures[i-1];
-}
+void GameMap::load_staticRectangularObjects()
+{
+	StaticRectangularObject* pavement1 = new StaticRectangularObject("pavement", { 0, 0 }, LEVEL_WIDTH, 2, false, m_textures[pv1]);
+	StaticRectangularObject* pavement2 = new StaticRectangularObject("pavement", { 15, 2 }, 2, LEVEL_HEIGHT, false, m_textures[pv1]);
 
-SDL_Texture* GameMap::render_map(WindowRender* p_window){
+	StaticRectangularObject* wall1 = new StaticRectangularObject("wall", { 17, 2 }, 1, LEVEL_HEIGHT, true, m_textures[bw1]);
 
-	SDL_Renderer* renderer = p_window->get_renderer();
-	SDL_Texture* mapTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
-		SDL_TEXTUREACCESS_TARGET, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
+	m_staticRectangularObjects.push_back(pavement1);
+	m_staticRectangularObjects.push_back(pavement2);
 
-	SDL_SetRenderTarget(renderer, mapTexture);
-	SDL_RenderClear(renderer);
-
-	for(int y = 0; y < LEVEL_HEIGHT; y++){
-		for(int x = 0; x < LEVEL_WIDTH; x++){
-
-			SDL_Rect dst = {x * 64, y * 64, 64, 64};
-
-			switch (m_Map[y][x]){
-			case gr1:
-				SDL_RenderCopy(renderer, m_textures[gr1]->get_texture(), nullptr, &dst);
-				break;
-			case gr2:
-				SDL_RenderCopy(renderer, m_textures[gr2]->get_texture(), nullptr, &dst);
-				break;
-			case gr3:
-				SDL_RenderCopy(renderer, m_textures[gr3]->get_texture(), nullptr, &dst);
-				break;
-			case pv1:
-				SDL_RenderCopy(renderer, m_textures[pv1]->get_texture(), nullptr, &dst);
-				break;
-			case wf1:
-				SDL_RenderCopy(renderer, m_textures[wf1]->get_texture(), nullptr, &dst);
-				break;
-			case bw1:
-				SDL_RenderCopy(renderer, m_textures[bw1]->get_texture(), nullptr, &dst);
-				m_colliders.push_back(dst);
-				break;
-			}
-		}
-	}
-
-	SDL_SetRenderTarget(renderer, nullptr);
-	return mapTexture;
+	m_staticRectangularObjects.push_back(wall1);
 }

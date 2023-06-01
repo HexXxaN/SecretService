@@ -8,16 +8,11 @@
 Texture::Texture(WindowRender* p_window, const char* p_filePath, bool p_colorKey) {
 
 	SDL_Surface* loadedSurface = IMG_Load(p_filePath);
+	SDL_SetColorKey(loadedSurface, p_colorKey, SDL_MapRGBA(loadedSurface->format, 0, 0xFF, 0xFF, 0xFF));
 
-	if (loadedSurface == nullptr)
-		std::cout << "Unable to load the texture! Error: " << SDL_GetError() << std::endl;
-	else{
-		SDL_SetColorKey(loadedSurface, p_colorKey, SDL_MapRGBA(loadedSurface->format, 0, 0xFF, 0xFF, 0xFF));
+	m_texture = SDL_CreateTextureFromSurface(p_window->get_renderer(), loadedSurface);
 
-		m_texture = SDL_CreateTextureFromSurface(p_window->get_renderer(), loadedSurface);
-
-		SDL_FreeSurface(loadedSurface);
-	}
+	SDL_FreeSurface(loadedSurface);
 }
 
 Texture::~Texture(){
