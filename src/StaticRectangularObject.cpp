@@ -1,19 +1,18 @@
 #pragma once
 #include "StaticRectangularObject.h"
 
-StaticRectangularObject::StaticRectangularObject(std::string p_ID, Point p_origin, unsigned short int p_width, unsigned short int p_height, bool p_isSolid, Texture* p_texture) {
-	m_ID = p_ID;
+StaticRectangularObject::StaticRectangularObject(unsigned short p_type, Point p_origin, unsigned short int p_width, unsigned short int p_height, Texture* p_texture) {
+	m_type = p_type;
 	m_origin = p_origin;
 	m_w = p_width;
 	m_h = p_height;
-	m_isSolid = p_isSolid;
 	m_texture = p_texture;
 }
 
 StaticRectangularObject::~StaticRectangularObject() {
 }
 
-void StaticRectangularObject::render_object(WindowRender* p_window) {
+void StaticRectangularObject::render_object(WindowRenderer* p_window) {
 	Point dst = { 0, 0 };
 
 	for (int i = 0; i < m_w; i++) {

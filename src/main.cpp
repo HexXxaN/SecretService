@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
-#include "WindowRender.h"
+#include "WindowRenderer.h"
 #include "GameMap.h"
 #include "Texture.h"
 #include "Agent.h"
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 
 	//Create window renderer called "Secret Service"
-	WindowRender* window = new WindowRender("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT);
+	WindowRenderer* window = new WindowRenderer("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	//Create game map
 	GameMap* gameMap = new GameMap(window);
@@ -31,14 +31,14 @@ int main(int argc, char* argv[]) {
 	Agent* player = nullptr;
 
 	//Load player texture
-	Texture* playerTex = new Texture(window, "../res/gfx/player_dot.png", true);
+	Texture* playerTex = new Texture(window, "../res/gfx/player_dot.png", texture_type::player, true);
 	//Create enemy texture
-	Texture* enemyTex = new Texture(window, "../res/gfx/enemy_dot.png", true);
+	Texture* enemyTex = new Texture(window, "../res/gfx/enemy_dot.png", texture_type::enemy, true);
 	//Create intro texture
 	Texture* intro = new Texture(window, "../res/gfx/intro.png");
 
-	//Create map texture using gameMap object. The object contains colliders required to detect collisions
-	SDL_Texture* mapTexture = gameMap->render_map(window);
+	//Create map texture using gameMap object
+	Texture* mapTexture = gameMap->render_map_texture(window);
 
 	CollisionDetector* collisionDetector = new CollisionDetector();
 	//collisionDetector->set_colliders(gameMap->get_colliders());
@@ -95,19 +95,18 @@ int main(int argc, char* argv[]) {
 		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
 		SDL_Rect camera_tmp = window->get_Camera()->get_camera();
-		window->render_static_texture(mapTexture, &camera_tmp, nullptr);
+		window->render_static_texture(mapTexture->get_texture(), &camera_tmp, nullptr);
 		window->render_player(playerTex->get_texture(), player);
 		window->display();
 	}
 	//_________END OF THE MAIN LOOP_____________
-
-	SDL_DestroyTexture(mapTexture);
 
 	delete collisionDetector;
 	delete player;
 	delete enemyTex;
 	delete playerTex;
 	delete gameMap;
+	delete mapTexture;
 	delete window;
 	
 	//Close SDL library

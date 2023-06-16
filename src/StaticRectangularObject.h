@@ -2,33 +2,31 @@
 #include <string>
 #include "Point.h"
 #include "Texture.h"
-#include "WindowRender.h"
+#include "WindowRenderer.h"
 
 
 class StaticRectangularObject 
 {
 public:
-	StaticRectangularObject(std::string p_ID, Point p_origin, unsigned short int p_width, unsigned short int p_height, bool p_isSolid = false, Texture* p_texture = nullptr);
-	~StaticRectangularObject();
+	StaticRectangularObject() {};
+	StaticRectangularObject(unsigned short p_type, Point p_origin, unsigned short int p_width, unsigned short int p_height, Texture* p_texture = nullptr);
+	virtual ~StaticRectangularObject();
 
-	inline std::string get_ID() { return m_ID; }
+	inline unsigned short get_type() { return m_type; }
 	inline Point get_origin() { return m_origin; }
-	inline short unsigned int get_width() { return m_w; }
-	inline short unsigned int get_height() { return m_h; }
-	inline bool is_solid() { return m_isSolid; }
+	inline unsigned short get_width() { return m_w; }
+	inline unsigned short get_height() { return m_h; }
 
-	inline void set_ID(std::string p_ID) { m_ID = p_ID; }
 	inline void set_origin(Point p_point) { m_origin = p_point; }
 	inline void set_width(unsigned short int p_width) { m_w = p_width; }
 	inline void set_height(unsigned short int p_height) { m_h = p_height; }
 	inline void set_texture(Texture* p_texture) { m_texture = p_texture; }
 
-	void render_object(WindowRender* p_window);
+	void render_object(WindowRenderer* p_window);
 
-private:
-	std::string m_ID = "";
+protected:
+	unsigned short m_type = undef;
 	Point m_origin = { 0, 0 };
-	short unsigned int m_w = 0, m_h = 0;
+	unsigned short m_w = 0, m_h = 0;
 	Texture* m_texture = nullptr;
-	bool m_isSolid = false;
 };
