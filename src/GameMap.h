@@ -23,6 +23,9 @@ class GameMap
 public:
 	GameMap(WindowRenderer* p_window);
 	~GameMap();
+
+	inline std::vector<StaticRectangularObject*> get_StaticRectangularObjects() { return m_staticRectangularObjects; }
+	inline std::vector<Building*> get_Buildings() { return m_buildings; }
 	Texture* render_map_texture(WindowRenderer* p_window);
 
 private:

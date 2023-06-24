@@ -14,6 +14,7 @@ public:
 	inline unsigned short get_verticalWallHeight() { return m_verticalWallHeight; }
 	inline unsigned short get_horizontalWallX() { return m_horizontalWallX; }
 	inline unsigned short get_verticalWallY() { return m_verticalWallY; }
+	inline std::vector<StaticRectangularObject*> get_components() { return m_components; }
 
 	virtual void generate_building(unsigned short int p_width, unsigned short int p_height) {};
 	void create_building_texture(WindowRenderer* p_window);

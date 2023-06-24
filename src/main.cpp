@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
 	Texture* mapTexture = gameMap->render_map_texture(window);
 
 	CollisionDetector* collisionDetector = new CollisionDetector();
-	//collisionDetector->set_colliders(gameMap->get_colliders());
+	collisionDetector->set_colliders(gameMap);
 
 	//Create a variable that's true when the intro is running
 	bool introRunning = true;
@@ -82,7 +82,6 @@ int main(int argc, char* argv[]) {
 
 	//______________MAIN LOOP__________________
 	while (gameRunning) {
-
 		while (events.while_events()) {
 			if (events.get_event().type == SDL_QUIT)
 				gameRunning = false;
