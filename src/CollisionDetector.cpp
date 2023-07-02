@@ -37,15 +37,44 @@ void CollisionDetector::set_colliders(GameMap* p_GameMap) {
     }
 }
 
-void CollisionDetector::manage_collisions(Agent* p_player) {
-    Point tmp = p_player->get_dotCenter();
-
+void CollisionDetector::move_player(Agent* p_player) {
+    Point prev = p_player->get_dotCenter();
     p_player->move();
+    this->detect_collisions(p_player, prev);
+}
+
+void CollisionDetector::move_enemies(std::vector<Enemy*> p_enemies) {
+    for (auto& enemy : p_enemies) {
+        Point prev = enemy->get_dotCenter();
+
+        if (enemy->get_Timer()->get_current_time() - enemy->get_Timer()->get_start() >= enemy->get_movementTime())
+            enemy->generate_movementTime();
+
+        enemy->move();
+
+        this->detect_collisions(enemy, prev);
+
+        bool isOnPavement = false;
+        Point currentPosition = enemy->get_dotCenter();
+
+        for (auto& walkingSurface : m_walkingSurfaces) {
+            if ((currentPosition.x >= walkingSurface.x && currentPosition.x <= walkingSurface.x + walkingSurface.w) &&
+                (currentPosition.y >= walkingSurface.y && currentPosition.y <= walkingSurface.y + walkingSurface.h)) {
+                isOnPavement = true;
+                break;
+            }
+        }
+
+        if (!isOnPavement)
+            enemy->set_dotCenter(prev);
+    }
+}
+
+void CollisionDetector::detect_collisions(MovableCircularObject* p_entity, Point p_prev) {
 
     unsigned short int closestX, closestY;
-    unsigned short int radius = p_player->get_radius();
-
-    Point dotCenter = p_player->get_dotCenter();
+    unsigned short int radius = p_entity->get_radius();
+    Point dotCenter = p_entity->get_dotCenter();
 
     for (auto& obsticle : m_colliders) {
         //Find the closest x coordinate of the obsticle
@@ -70,22 +99,23 @@ void CollisionDetector::manage_collisions(Agent* p_player) {
         //If collision occured 
         if (deltaX * deltaX + deltaY * deltaY < radius * radius) {
             //If the player was to the left of an obsticle
-            if (tmp.x <= obsticle.x - radius / 2 && tmp.y >= obsticle.y - radius && tmp.y <= obsticle.y + obsticle.h + radius)
+            if (p_prev.x <= obsticle.x - radius / 2 && p_prev.y >= obsticle.y - radius && p_prev.y <= obsticle.y + obsticle.h + radius)
                 //Move to the left edge
                 dotCenter.x = obsticle.x - radius;
             //If the player was to the right of an obsticle
-            else if (tmp.x >= obsticle.x + obsticle.w + radius && tmp.y >= obsticle.y - radius && tmp.y <= obsticle.y + obsticle.h + radius)
+            else if (p_prev.x >= obsticle.x + obsticle.w + radius && p_prev.y >= obsticle.y - radius && p_prev.y <= obsticle.y + obsticle.h + radius)
                 //Move to the right edge
                 dotCenter.x = obsticle.x + obsticle.w + radius;
             //If player was on the top edge of an obsticle
-            else if (tmp.y <= obsticle.y - radius && tmp.x >= obsticle.x - radius && tmp.x <= obsticle.x + obsticle.w + radius )
+            else if (p_prev.y <= obsticle.y - radius && p_prev.x >= obsticle.x - radius && p_prev.x <= obsticle.x + obsticle.w + radius)
                 //Move to the top edge
                 dotCenter.y = obsticle.y - radius;
             else
                 //Move to the bottom edge
                 dotCenter.y = obsticle.y + obsticle.h + radius;
+
+            p_entity->set_dotCenter(dotCenter);
         }
-        p_player->set_dotCenter(dotCenter);
     }
 }
 

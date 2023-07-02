@@ -47,9 +47,13 @@ int main(int argc, char* argv[]) {
 	bool introRunning = true;
 	//Create a variable that's true when the game is running to run the main loop
 	bool gameRunning = true;
-	//Create a variable that's responsible for handling events
 
+	//Create an object that's responsible for handling events
 	EventHandler events;
+
+	std::vector<Enemy*> enemies;
+	Enemy* en1 = new Enemy(450, 450);
+	enemies.push_back(en1);
 	
 	//________________INTRO____________________
 	while (introRunning) {
@@ -89,13 +93,16 @@ int main(int argc, char* argv[]) {
 			events.handle_events(player);
 		}
 
-		collisionDetector->manage_collisions(player);
+		collisionDetector->move_player(player);
+		collisionDetector->move_enemies(enemies);
 		player->handle_special_ability();
 		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();
 		SDL_Rect camera_tmp = window->get_Camera()->get_camera();
 		window->render_static_texture(mapTexture->get_texture(), &camera_tmp, nullptr);
-		window->render_player(playerTex->get_texture(), player);
+		window->render_entity(playerTex->get_texture(), player);
+		for (auto& enemy : enemies)
+			window->render_entity(enemyTex->get_texture(), enemy);
 		window->display();
 	}
 	//_________END OF THE MAIN LOOP_____________
@@ -107,6 +114,9 @@ int main(int argc, char* argv[]) {
 	delete gameMap;
 	delete mapTexture;
 	delete window;
+
+	for (auto& enemy : enemies)
+		delete enemy;
 	
 	//Close SDL library
 	SDL_Quit();

@@ -28,12 +28,12 @@ void WindowRenderer::render_building(SDL_Texture* p_texture, Point p_origin, int
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &dst);
 }
 
-void WindowRenderer::render_player(SDL_Texture* p_texture, Agent* p_player){
-	unsigned short int diameter = p_player->get_Diameter();
-	unsigned short int radius = p_player->get_radius();
-	Point playerCenter = p_player->get_dotCenter();
+void WindowRenderer::render_entity(SDL_Texture* p_texture, MovableCircularObject* p_entity){
+	unsigned short int diameter = p_entity->get_Diameter();
+	unsigned short int radius = p_entity->get_radius();
+	Point entityCenter = p_entity->get_dotCenter();
 	SDL_Rect camera = m_Camera.get_camera();
 
-	SDL_Rect drawingRect = { playerCenter.x - radius - camera.x, playerCenter.y - radius - camera.y, diameter, diameter};
+	SDL_Rect drawingRect = { entityCenter.x - radius - camera.x, entityCenter.y - radius - camera.y, diameter, diameter};
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &drawingRect);
 }

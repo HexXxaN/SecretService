@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "MovableCircularObject.h"
 #include "Agent.h"
+#include "Enemy.h"
 
 
 class WindowRenderer {
@@ -21,7 +22,7 @@ public:
 	void render_static_texture(SDL_Texture* p_texture, Point p_origin);
 	void render_static_texture(SDL_Texture* p_texture, SDL_Rect* p_src, SDL_Rect* p_dst);
 	void render_building(SDL_Texture* p_texture, Point p_origin, int p_width, int p_height);
-	void render_player(SDL_Texture* p_texture, Agent* p_player);
+	void render_entity(SDL_Texture* p_texture, MovableCircularObject* p_player);
 
 private:
 	Camera m_Camera;
