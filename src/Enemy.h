@@ -10,6 +10,8 @@ public:
 
 	unsigned short int get_movementTime() { return m_movementTime; }
 
+	static void set_playerPos(Point p_playerPos) { m_playerPos = p_playerPos; }
+
 	bool detect_player(Point p_playerPos);
 	void generate_movementTime();
 	void move();

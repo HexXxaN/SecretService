@@ -95,6 +95,7 @@ int main(int argc, char* argv[]) {
 
 		collisionDetector->move_player(player);
 		collisionDetector->move_enemies(enemies);
+		collisionDetector->detect_player(player, enemies);
 		player->handle_special_ability();
 		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		window->clear();

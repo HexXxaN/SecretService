@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <cmath>
 #include "CollisionDetector.h"
 #include "Agent.h"
 
@@ -67,6 +68,56 @@ void CollisionDetector::move_enemies(std::vector<Enemy*> p_enemies) {
 
         if (!isOnPavement)
             enemy->set_dotCenter(prev);
+    }
+}
+
+void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy*> p_enemies) {
+
+    if (p_player->can_be_detected()) {
+        Point playerPos = p_player->get_dotCenter();
+
+        for (auto& enemy : p_enemies) {
+            if (enemy->detect_player(playerPos)) {
+
+                Point enemyPos = enemy->get_dotCenter();
+                SDL_Rect detectionRect;
+
+                if (playerPos.x < enemyPos.x) {
+                    detectionRect.x = playerPos.x;
+                    detectionRect.w = enemyPos.x - playerPos.x;
+                }
+                else {
+                    detectionRect.x = enemyPos.x;
+                    detectionRect.w = playerPos.x - enemyPos.x;
+                }
+
+                if (playerPos.y < enemyPos.y) {
+                    detectionRect.y = playerPos.y;
+                    detectionRect.h = enemyPos.y - playerPos.y;
+                }
+                else {
+                    detectionRect.y = enemyPos.y;
+                    detectionRect.h = playerPos.y - enemyPos.y;
+                }
+
+                bool obsticleBetweenEntities = false;
+
+                for (auto& collider : m_colliders) {
+                    // If there's an object between player and enemy, the enemy won't detect the player
+                    if (detectionRect.x > collider.x - detectionRect.w && detectionRect.x < collider.x + collider.w &&
+                        detectionRect.y > collider.y - detectionRect.h && detectionRect.y < collider.y + collider.h) {
+                        obsticleBetweenEntities = true;
+                        break;
+                    }
+                }
+
+                // If there's no obsticle between player and enemy, the enemies get the player position
+                if (!obsticleBetweenEntities) {
+                    std::cout << "Player detected!\n";
+                    Enemy::set_playerPos(playerPos);
+                }
+            }
+        }
     }
 }
 

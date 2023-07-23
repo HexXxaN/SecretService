@@ -12,6 +12,7 @@ public:
 
 	void move_player(Agent* p_player);
 	void move_enemies(std::vector<Enemy*> p_enemies);
+	void detect_player(Agent* p_player, std::vector<Enemy*> p_enemies);
 
 private:
 	void detect_collisions(MovableCircularObject* p_entity, Point p_prev);

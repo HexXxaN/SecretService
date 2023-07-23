@@ -17,11 +17,8 @@ bool Enemy::detect_player(Point p_playerPos) {
 	int deltaY = m_dotCenter.y - p_playerPos.y;
 	
 	//From the pythagorean theorem
-	if (deltaX * deltaX + deltaY * deltaY < m_DetectionRadius * m_DetectionRadius) {
-		m_playerPos = p_playerPos;
-		std::cout << "Player detected!\n";
+	if (deltaX * deltaX + deltaY * deltaY < m_DetectionRadius * m_DetectionRadius)
 		return true;
-	}
 	else
 		return false;
 }
