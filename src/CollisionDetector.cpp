@@ -46,28 +46,38 @@ void CollisionDetector::move_player(Agent* p_player) {
 
 void CollisionDetector::move_enemies(std::vector<Enemy*> p_enemies) {
     for (auto& enemy : p_enemies) {
+
         Point prev = enemy->get_dotCenter();
 
-        if (enemy->get_Timer()->get_current_time() - enemy->get_Timer()->get_start() >= enemy->get_movementTime())
-            enemy->generate_movementTime();
+        if (Enemy::get_playerPos().x > -1 && Enemy::get_playerPos().y > -1) {
 
-        enemy->move();
+            enemy->move(Enemy::get_playerPos());
+            this->detect_collisions(enemy, prev);
 
-        this->detect_collisions(enemy, prev);
+        }
+        else {
+            if (enemy->get_Timer()->get_current_time() - enemy->get_Timer()->get_start() >= enemy->get_movementTime())
+                enemy->generate_movementTime();
 
-        bool isOnPavement = false;
-        Point currentPosition = enemy->get_dotCenter();
+            enemy->move();
 
-        for (auto& walkingSurface : m_walkingSurfaces) {
-            if ((currentPosition.x >= walkingSurface.x && currentPosition.x <= walkingSurface.x + walkingSurface.w) &&
-                (currentPosition.y >= walkingSurface.y && currentPosition.y <= walkingSurface.y + walkingSurface.h)) {
-                isOnPavement = true;
-                break;
+            this->detect_collisions(enemy, prev);
+
+            bool isOnPavement = false;
+            Point currentPosition = enemy->get_dotCenter();
+
+            for (auto& walkingSurface : m_walkingSurfaces) {
+                if ((currentPosition.x >= walkingSurface.x && currentPosition.x <= walkingSurface.x + walkingSurface.w) &&
+                    (currentPosition.y >= walkingSurface.y && currentPosition.y <= walkingSurface.y + walkingSurface.h)) {
+                    isOnPavement = true;
+                    break;
+                }
             }
+
+            if (!isOnPavement)
+                enemy->set_dotCenter(prev);
         }
 
-        if (!isOnPavement)
-            enemy->set_dotCenter(prev);
     }
 }
 
@@ -115,6 +125,7 @@ void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy*> p_ene
                 if (!obsticleBetweenEntities) {
                     std::cout << "Player detected!\n";
                     Enemy::set_playerPos(playerPos);
+                    Enemy::set_detection_time();
                 }
             }
         }

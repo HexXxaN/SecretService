@@ -5,6 +5,7 @@
 
 //initializing static Point m_playerPos
 Point Enemy::m_playerPos = { -1, -1 };
+Timer Enemy::m_detectionTimer;
 
 
 Enemy::Enemy(unsigned short int p_x, unsigned short int p_y) {
@@ -44,6 +45,39 @@ void Enemy::move() {
 		m_dotCenter.x -= m_vel;
 	if (m_moveRight)
 		m_dotCenter.x += m_vel;
+}
+
+void Enemy::move(Point m_point) {
+
+	if (m_point.x - m_dotCenter.x > (int)m_vel) {
+		m_moveLeft = false;
+		m_moveRight = true;
+	}
+	else if (m_point.x - m_dotCenter.x <= (int)m_vel && m_point.x - m_dotCenter.x >= (int)-m_vel) {
+		m_moveLeft = false;
+		m_moveRight = false;
+		m_dotCenter.x = m_point.x;
+	}
+	else if (m_point.x - m_dotCenter.x < (int)-m_vel) {
+		m_moveLeft = true;
+		m_moveRight = false;
+	}
+
+	if (m_point.y - m_dotCenter.y > (int)m_vel) {
+		m_moveUp = true;
+		m_moveDown = false;
+	}
+	else if (m_point.y - m_dotCenter.y <= (int)m_vel && m_point.y - m_dotCenter.y >= (int)-m_vel) {
+		m_moveUp = false;
+		m_moveDown = false;
+		m_dotCenter.y = m_point.y;
+	}
+	else if (m_point.y - m_dotCenter.y < (int)-m_vel) {
+		m_moveUp = false;
+		m_moveDown = true;
+	}
+
+	this->move();
 }
 
 void Enemy::generate_movement_direction() {
