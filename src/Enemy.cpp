@@ -4,6 +4,7 @@
 #include "Enemy.h"
 
 //initializing static Point m_playerPos
+bool Enemy::m_wasPlayerSpotted = false;
 Point Enemy::m_playerPos = { -1, -1 };
 Timer Enemy::m_detectionTimer;
 
@@ -11,6 +12,8 @@ Timer Enemy::m_detectionTimer;
 Enemy::Enemy(unsigned short int p_x, unsigned short int p_y) {
 	m_dotCenter.x = p_x;
 	m_dotCenter.y = p_y;
+
+	m_originPoint = { p_x, p_y };
 }
 
 bool Enemy::detect_player(Point p_playerPos) {
@@ -25,8 +28,6 @@ bool Enemy::detect_player(Point p_playerPos) {
 }
 
 void Enemy::generate_movementTime() {
-	generate_movement_direction();
-
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> dist(100, 500);

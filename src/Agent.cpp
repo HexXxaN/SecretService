@@ -5,6 +5,10 @@
 #include "GameMap.h"
 
 
+Agent::Agent() {
+    m_vel = 6;
+}
+
 void Agent::move() {
     //Move the agent left or right
     if (m_moveLeft)

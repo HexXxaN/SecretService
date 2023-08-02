@@ -5,8 +5,8 @@
 
 class Timer {
 public:
-	inline unsigned int  get_current_time() { return SDL_GetTicks();}
-	inline unsigned int get_start() { return m_start;}
+	inline unsigned int  get_current_time() const { return SDL_GetTicks();}
+	inline unsigned int get_start() const { return m_start;}
 
 	inline void set_to_current_time() { m_start = SDL_GetTicks(); }
 

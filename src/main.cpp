@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
 	EventHandler events;
 
 	std::vector<Enemy*> enemies;
-	Enemy* en1 = new Enemy(450, 450);
+	Enemy* en1 = new Enemy(500, 64);
 	enemies.push_back(en1);
 	
 	//________________INTRO____________________

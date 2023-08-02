@@ -12,10 +12,10 @@ public:
 	StaticRectangularObject(unsigned short p_type, Point p_origin, unsigned short int p_width, unsigned short int p_height, Texture* p_texture = nullptr);
 	virtual ~StaticRectangularObject();
 
-	inline unsigned short get_type() { return m_type; }
-	inline Point get_origin() { return m_origin; }
-	inline unsigned short get_width() { return m_w; }
-	inline unsigned short get_height() { return m_h; }
+	inline unsigned short get_type() const { return m_type; }
+	inline Point get_origin() const { return m_origin; }
+	inline unsigned short get_width() const { return m_w; }
+	inline unsigned short get_height() const { return m_h; }
 
 	inline void set_origin(Point p_point) { m_origin = p_point; }
 	inline void set_width(unsigned short int p_width) { m_w = p_width; }

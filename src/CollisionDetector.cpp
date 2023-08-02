@@ -10,7 +10,7 @@ void CollisionDetector::set_colliders(GameMap* p_GameMap) {
 
     SDL_Rect rect;
 
-    for (auto& collider : mapColliders) {
+    for (const auto& collider : mapColliders) {
         rect.x = collider->get_origin().x * 64;
         rect.y = collider->get_origin().y * 64;
         rect.w = collider->get_width() * 64;
@@ -22,7 +22,7 @@ void CollisionDetector::set_colliders(GameMap* p_GameMap) {
             m_walkingSurfaces.push_back(rect);
     }
 
-    for (auto& building : buildings) {
+    for (const auto& building : buildings) {
         std::vector<StaticRectangularObject*> components = building->get_components();
         for (auto& component : components) {
             rect.x = (component->get_origin().x + building->get_origin().x) * 64;
@@ -38,50 +38,43 @@ void CollisionDetector::set_colliders(GameMap* p_GameMap) {
     }
 }
 
-void CollisionDetector::move_player(Agent* p_player) {
+void CollisionDetector::move_player(Agent* p_player) const {
     Point prev = p_player->get_dotCenter();
     p_player->move();
     this->detect_collisions(p_player, prev);
 }
 
-void CollisionDetector::move_enemies(std::vector<Enemy*> p_enemies) {
+void CollisionDetector::move_enemies(std::vector<Enemy*>& p_enemies) const {
+
     for (auto& enemy : p_enemies) {
 
         Point prev = enemy->get_dotCenter();
 
         if (Enemy::get_playerPos().x > -1 && Enemy::get_playerPos().y > -1) {
-
             enemy->move(Enemy::get_playerPos());
-            this->detect_collisions(enemy, prev);
-
+            
+            // If at least one enemy reached the last known player position, set the player position to {-1, -1}
+            if (Enemy::get_playerPos() == enemy->get_dotCenter())
+                Enemy::set_playerPos({ -1, -1 });
         }
+        else if (Enemy::was_player_spotted() && !this->is_on_walkingSurface(enemy))
+            enemy->move(enemy->get_originPoint());
         else {
-            if (enemy->get_Timer()->get_current_time() - enemy->get_Timer()->get_start() >= enemy->get_movementTime())
+            if (enemy->get_Timer()->get_current_time() - enemy->get_Timer()->get_start() >= enemy->get_movementTime()) {
+                enemy->generate_movement_direction();
                 enemy->generate_movementTime();
+            }
 
             enemy->move();
 
-            this->detect_collisions(enemy, prev);
-
-            bool isOnPavement = false;
-            Point currentPosition = enemy->get_dotCenter();
-
-            for (auto& walkingSurface : m_walkingSurfaces) {
-                if ((currentPosition.x >= walkingSurface.x && currentPosition.x <= walkingSurface.x + walkingSurface.w) &&
-                    (currentPosition.y >= walkingSurface.y && currentPosition.y <= walkingSurface.y + walkingSurface.h)) {
-                    isOnPavement = true;
-                    break;
-                }
-            }
-
-            if (!isOnPavement)
+            if (!this->is_on_walkingSurface(enemy))
                 enemy->set_dotCenter(prev);
         }
-
+        this->detect_collisions(enemy, prev);
     }
 }
 
-void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy*> p_enemies) {
+void CollisionDetector::detect_player(Agent*& p_player, std::vector<Enemy*>& p_enemies) const {
 
     if (p_player->can_be_detected()) {
         Point playerPos = p_player->get_dotCenter();
@@ -123,7 +116,7 @@ void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy*> p_ene
 
                 // If there's no obsticle between player and enemy, the enemies get the player position
                 if (!obsticleBetweenEntities) {
-                    std::cout << "Player detected!\n";
+                    Enemy::set_wasPlayerSpotted();
                     Enemy::set_playerPos(playerPos);
                     Enemy::set_detection_time();
                 }
@@ -132,7 +125,7 @@ void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy*> p_ene
     }
 }
 
-void CollisionDetector::detect_collisions(MovableCircularObject* p_entity, Point p_prev) {
+void CollisionDetector::detect_collisions(MovableCircularObject* p_entity, Point p_prev) const {
 
     unsigned short int closestX, closestY;
     unsigned short int radius = p_entity->get_radius();
@@ -181,3 +174,14 @@ void CollisionDetector::detect_collisions(MovableCircularObject* p_entity, Point
     }
 }
 
+inline bool CollisionDetector::is_on_walkingSurface(Enemy*& p_enemy) const {
+
+    Point currentPosition = p_enemy->get_dotCenter();
+
+    for (auto& walkingSurface : m_walkingSurfaces) {
+        if ((currentPosition.x >= walkingSurface.x && currentPosition.x <= walkingSurface.x + walkingSurface.w) &&
+            (currentPosition.y >= walkingSurface.y && currentPosition.y <= walkingSurface.y + walkingSurface.h))
+            return true;
+    }
+    return false;
+}

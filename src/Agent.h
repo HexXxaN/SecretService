@@ -6,10 +6,7 @@
 class Agent : public MovableCircularObject
 {
 public:
-	inline bool get_moveUp() const { return m_moveUp; }
-	inline bool get_moveDown() const { return m_moveDown; }
-	inline bool get_moveLeft() const { return m_moveLeft; }
-	inline bool get_moveRight() const { return m_moveRight; }
+	Agent();
 
 	inline void set_moveUp(bool p_val) { m_moveUp = p_val; }
 	inline void set_moveDown(bool p_val) { m_moveDown = p_val; }
@@ -17,7 +14,7 @@ public:
 	inline void set_moveRight(bool p_val) { m_moveRight = p_val; }
 
 	bool can_be_detected() { return m_canBeDetected; }
-	virtual void handle_special_ability() {}
+	virtual void handle_special_ability() = 0;
 	void move();
 
 protected:
