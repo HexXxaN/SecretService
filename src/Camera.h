@@ -5,6 +5,11 @@
 class Camera 
 {
 public:
+	Camera() {}
+	Camera(const Camera& p_other)
+		: m_camera(p_other.get_camera()) {}
+	~Camera() {}
+
 	inline SDL_Rect get_camera() const { return m_camera; }
 
 	inline void set_camera(SDL_Rect p_camera) { m_camera = p_camera; }

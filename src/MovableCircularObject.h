@@ -12,6 +12,8 @@ public:
 
 	void set_dotCenter(Point p_dotCenter) { m_dotCenter = p_dotCenter; }
 
+	void move();
+
 protected:
 	const unsigned int m_Diameter = 55;
 	unsigned short int m_radius = m_Diameter / 2;

@@ -6,14 +6,10 @@
 //initializing static Point m_playerPos
 bool Enemy::m_wasPlayerSpotted = false;
 Point Enemy::m_playerPos = { -1, -1 };
-Timer Enemy::m_detectionTimer;
 
-
-Enemy::Enemy(unsigned short int p_x, unsigned short int p_y) {
-	m_dotCenter.x = p_x;
-	m_dotCenter.y = p_y;
-
-	m_originPoint = { p_x, p_y };
+Enemy::Enemy(Point p_origin) {
+	m_dotCenter = p_origin;
+	m_originPoint = p_origin;
 }
 
 bool Enemy::detect_player(Point p_playerPos) {
@@ -34,51 +30,40 @@ void Enemy::generate_movementTime() {
 
 	m_movementTime = dist(gen);
 
-	this->m_Timer.set_to_current_time();
+	m_Timer.set_to_current_time();
 }
 
-void Enemy::move() {
-	if (m_moveUp)
-		m_dotCenter.y += m_vel;
-	if (m_moveDown)
-		m_dotCenter.y -= m_vel;
-	if (m_moveLeft)
-		m_dotCenter.x -= m_vel;
-	if (m_moveRight)
-		m_dotCenter.x += m_vel;
-}
+void Enemy::move(Point p_point) {
 
-void Enemy::move(Point m_point) {
-
-	if (m_point.x - m_dotCenter.x > (int)m_vel) {
+	if (p_point.x - m_dotCenter.x > (int)m_vel) {
 		m_moveLeft = false;
 		m_moveRight = true;
 	}
-	else if (m_point.x - m_dotCenter.x <= (int)m_vel && m_point.x - m_dotCenter.x >= (int)-m_vel) {
+	else if (p_point.x - m_dotCenter.x <= (int)m_vel && p_point.x - m_dotCenter.x >= (int)-m_vel) {
 		m_moveLeft = false;
 		m_moveRight = false;
-		m_dotCenter.x = m_point.x;
+		m_dotCenter.x = p_point.x;
 	}
-	else if (m_point.x - m_dotCenter.x < (int)-m_vel) {
+	else if (p_point.x - m_dotCenter.x < (int)-m_vel) {
 		m_moveLeft = true;
 		m_moveRight = false;
 	}
 
-	if (m_point.y - m_dotCenter.y > (int)m_vel) {
-		m_moveUp = true;
-		m_moveDown = false;
-	}
-	else if (m_point.y - m_dotCenter.y <= (int)m_vel && m_point.y - m_dotCenter.y >= (int)-m_vel) {
-		m_moveUp = false;
-		m_moveDown = false;
-		m_dotCenter.y = m_point.y;
-	}
-	else if (m_point.y - m_dotCenter.y < (int)-m_vel) {
+	if (p_point.y - m_dotCenter.y > (int)m_vel) {
 		m_moveUp = false;
 		m_moveDown = true;
 	}
+	else if (p_point.y - m_dotCenter.y <= (int)m_vel && p_point.y - m_dotCenter.y >= (int)-m_vel) {
+		m_moveUp = false;
+		m_moveDown = false;
+		m_dotCenter.y = p_point.y;
+	}
+	else if (p_point.y - m_dotCenter.y < (int)-m_vel) {
+		m_moveUp = true;
+		m_moveDown = false;
+	}
 
-	this->move();
+	MovableCircularObject::move();
 }
 
 void Enemy::generate_movement_direction() {
