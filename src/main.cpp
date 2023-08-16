@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
+#include "Macros.h"
 #include "WindowRenderer.h"
 #include "GameMap.h"
 #include "Texture.h"
@@ -11,10 +12,6 @@
 #include "Enemy.h"
 #include "EventHandler.h"
 #include "CollisionDetector.h"
-
-
-#define SCREEN_WIDTH 1600
-#define SCREEN_HEIGHT 900
 
 
 int main(int argc, char* argv[]) {
@@ -83,6 +80,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	delete intro;
+
+	player->set_dotCenter({ 64, 64 });
 
 	//______________MAIN LOOP__________________
 	while (gameRunning) {

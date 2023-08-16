@@ -3,9 +3,11 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "GameMap.h"
+#include "Macros.h"
 #include "WindowRenderer.h"
 #include "Texture.h"
 #include "Warehouse.h"
+
 
 GameMap::GameMap(WindowRenderer* p_window){
 	load_textures(p_window);
@@ -58,6 +60,7 @@ void GameMap::load_textures(WindowRenderer* p_window) {
 	Texture* concrete_floor = new Texture(p_window, "../res/gfx/concrete_floor.png", texture_type::concrete_floor);
 	Texture* finish = new Texture(p_window, "../res/gfx/finish.png", texture_type::finish);
 
+	m_textures.reserve(8);
 
 	//Stacking map textures in a vector
 	m_textures.push_back(grass1);
@@ -84,6 +87,8 @@ void GameMap::load_staticRectangularObjects()
 		pavement2->get_origin().x, 2, m_textures[pv1]);
 	StaticRectangularObject* pavement7 = new StaticRectangularObject(texture_type::pavement, { 21, m_buildings[3]->get_origin().y + m_buildings[3]->get_verticalWallHeight() + 1 }, m_buildings[3]->get_width(), 2, m_textures[pv1]);
 	StaticRectangularObject* pavement8 = new StaticRectangularObject(texture_type::pavement, { LEVEL_WIDTH - 2, 0 }, 2, LEVEL_HEIGHT, m_textures[pv1]);
+
+	m_staticRectangularObjects.reserve(8);
 
 	m_staticRectangularObjects.push_back(pavement1);
 	m_staticRectangularObjects.push_back(pavement2);
@@ -112,6 +117,8 @@ void GameMap::load_buildings(WindowRenderer* p_window)
 
 	warehouse1->generate_building(16, 16);
 	warehouse2->generate_building(16, 18);
+
+	m_buildings.reserve(5);
 
 	m_buildings.push_back(house1);
 	m_buildings.push_back(house2);

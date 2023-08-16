@@ -21,8 +21,8 @@ void EventHandler::handle_events(Agent* p_agent) {
             p_agent->set_moveRight(true);
             break;
         case SDLK_LSHIFT:
-            if (!p_agent->get_Timer()->get_start())
-                p_agent->get_Timer()->set_to_current_time();
+            if (!p_agent->get_Timer().get_start())
+                p_agent->set_Timer_to_curr_time();
             break;
         }
     //If a key was released

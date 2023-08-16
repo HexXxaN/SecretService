@@ -8,7 +8,7 @@ public:
 	inline unsigned short int get_Diameter() const { return m_Diameter; }
 	inline unsigned short int get_radius() const { return m_radius; }
 	inline Point get_dotCenter() const { return m_dotCenter; }
-	Timer* get_Timer() { return &m_Timer; }
+	Timer get_Timer() { return m_Timer; }
 
 	void set_dotCenter(Point p_dotCenter) { m_dotCenter = p_dotCenter; }
 

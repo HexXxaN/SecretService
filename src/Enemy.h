@@ -26,7 +26,7 @@ private:
 	static bool m_wasPlayerSpotted;
 	static Point m_playerPos;
 
-	const short int m_DetectionRadius = 200;
+	const short int m_DetectionRadius = 300;
 	unsigned short int m_movementTime = 0;
-	Point m_originPoint;
+	Point m_originPoint = { 0, 0 };
 };

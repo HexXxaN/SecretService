@@ -3,6 +3,7 @@
 #include <random>
 #include "Enemy.h"
 
+
 //initializing static Point m_playerPos
 bool Enemy::m_wasPlayerSpotted = false;
 Point Enemy::m_playerPos = { -1, -1 };

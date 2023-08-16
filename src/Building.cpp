@@ -3,6 +3,7 @@
 #include "WindowRenderer.h"
 #include "Texture.h"
 
+
 Building::~Building()
 {
 	for (auto& component : m_components)
@@ -11,8 +12,7 @@ Building::~Building()
 	delete m_texture;
 }
 
-void Building::set_components_texture(std::vector<Texture*> p_textures)
-{
+void Building::set_components_texture(const std::vector<Texture*>& p_textures) {
 	for (auto& component : m_components) {
 		for (auto& texture : p_textures) {
 			if (component->get_type() == texture->get_type()) {

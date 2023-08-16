@@ -4,6 +4,7 @@
 #include "CollisionDetector.h"
 #include "Agent.h"
 
+
 void CollisionDetector::set_colliders(GameMap* p_GameMap) {
     std::vector<StaticRectangularObject*> mapColliders = p_GameMap->get_StaticRectangularObjects();
     std::vector<Building*> buildings = p_GameMap->get_Buildings();
@@ -57,10 +58,10 @@ void CollisionDetector::move_enemies(std::vector<Enemy*>& p_enemies) const {
             if (Enemy::get_playerPos() == enemy->get_dotCenter())
                 Enemy::set_playerPos({ -1, -1 });
         }
-        else if (Enemy::was_player_spotted() && !this->is_on_walkingSurface(enemy))
+        else if (Enemy::was_player_spotted() && !is_on_walkingSurface(enemy))
             enemy->move(enemy->get_originPoint());
         else {
-            if (enemy->get_Timer()->get_current_time() - enemy->get_Timer()->get_start() >= enemy->get_movementTime()) {
+            if (enemy->get_Timer().get_current_time() - enemy->get_Timer().get_start() >= enemy->get_movementTime()) {
                 enemy->generate_movement_direction();
                 enemy->generate_movementTime();
             }

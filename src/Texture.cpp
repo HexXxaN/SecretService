@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "WindowRenderer.h"
 
+
 Texture::Texture(WindowRenderer* p_window, const char* p_filePath, unsigned short p_type, bool p_colorKey) {
 
 	SDL_Surface* loadedSurface = IMG_Load(p_filePath);

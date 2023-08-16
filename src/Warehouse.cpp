@@ -40,6 +40,8 @@ void Warehouse::generate_building(unsigned short int p_width, unsigned short int
 	StaticRectangularObject* verticalWall2 = new StaticRectangularObject(texture_type::wall, { 0, m_verticalWallY }, 1, m_verticalWallHeight);
 	StaticRectangularObject* verticalWall3 = new StaticRectangularObject(texture_type::wall, { p_width - 1 , 1 }, 1, p_height - 2);
 
+	m_components.reserve(7);
+
 	m_components.push_back(floor);
 
 	m_components.push_back(horizontalWall1);

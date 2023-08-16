@@ -5,5 +5,5 @@
 class Agent_B : public Agent
 {
 public:
-	void handle_special_ability();
+	void handle_special_ability() override;
 };

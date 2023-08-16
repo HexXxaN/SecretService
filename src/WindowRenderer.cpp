@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include "WindowRenderer.h"
 
+
 WindowRenderer::WindowRenderer(const char* p_title, int p_width, int p_height) {
 	m_window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_width, p_height, SDL_WINDOW_SHOWN);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);

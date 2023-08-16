@@ -9,10 +9,6 @@
 #include "House.h"
 
 
-#define LEVEL_WIDTH 50
-#define LEVEL_HEIGHT 50
-
-
 enum texture_enum{
 	gr1, gr2, gr3, pv1, wf1, cf1, bw1, fin
 };

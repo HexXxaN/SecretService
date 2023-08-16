@@ -9,5 +9,5 @@ public:
 	House(Point p_origin) { m_origin = p_origin; }
 	~House() {}
 
-	void generate_building(unsigned short int p_width, unsigned short int p_height);
+	void generate_building(unsigned short int p_width, unsigned short int p_height) override;
 };
