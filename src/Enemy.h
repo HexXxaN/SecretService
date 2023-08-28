@@ -6,6 +6,7 @@
 class Enemy : public MovableCircularObject
 {
 public:
+	Enemy() {}
 	Enemy(Point p_origin);
 	~Enemy() {}
 

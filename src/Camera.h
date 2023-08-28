@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "Agent.h"
 
+
 class Camera 
 {
 public:

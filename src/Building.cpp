@@ -23,20 +23,20 @@ void Building::set_components_texture(const std::vector<Texture*>& p_textures) {
 	}
 }
 
-void Building::create_building_texture(WindowRenderer* p_window) {
+void Building::create_building_texture(const WindowRenderer& p_window) {
 
 	m_texture = new Texture();
 	m_texture->create_texture(p_window, m_w * 64, m_h * 64);
 
-	p_window->set_render_target(m_texture->get_texture());
-	p_window->clear();
+	p_window.set_render_target(m_texture->get_texture());
+	p_window.clear();
 
 	for (auto& component : m_components)
 		component->render_object(p_window);
 
-	p_window->set_render_target(nullptr);
+	p_window.set_render_target(nullptr);
 }
 
-void Building::render_object(WindowRenderer* p_window) {
-	p_window->render_building(m_texture->get_texture(), m_origin, m_w, m_h);
+void Building::render_object(const WindowRenderer& p_window) {
+	p_window.render_building(m_texture->get_texture(), m_origin, m_w, m_h);
 }

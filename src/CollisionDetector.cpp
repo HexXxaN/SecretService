@@ -5,9 +5,9 @@
 #include "Agent.h"
 
 
-void CollisionDetector::set_colliders(GameMap* p_GameMap) {
-    std::vector<StaticRectangularObject*> mapColliders = p_GameMap->get_StaticRectangularObjects();
-    std::vector<Building*> buildings = p_GameMap->get_Buildings();
+void CollisionDetector::set_colliders(const GameMap& p_GameMap) {
+    std::vector<StaticRectangularObject*> mapColliders = p_GameMap.get_StaticRectangularObjects();
+    std::vector<Building*> buildings = p_GameMap.get_Buildings();
 
     SDL_Rect rect;
 
@@ -45,45 +45,45 @@ void CollisionDetector::move_player(Agent* p_player) const {
     this->detect_collisions(p_player, prev);
 }
 
-void CollisionDetector::move_enemies(std::vector<Enemy*>& p_enemies) const {
+void CollisionDetector::move_enemies(std::vector<Enemy>& p_enemies) const {
 
     for (auto& enemy : p_enemies) {
 
-        Point prev = enemy->get_dotCenter();
+        Point prev = enemy.get_dotCenter();
 
         if (Enemy::get_playerPos().x > -1 && Enemy::get_playerPos().y > -1) {
-            enemy->move(Enemy::get_playerPos());
+            enemy.move(Enemy::get_playerPos());
             
             // If at least one enemy reached the last known player position, set the player position to {-1, -1}
-            if (Enemy::get_playerPos() == enemy->get_dotCenter())
+            if (Enemy::get_playerPos() == enemy.get_dotCenter())
                 Enemy::set_playerPos({ -1, -1 });
         }
         else if (Enemy::was_player_spotted() && !is_on_walkingSurface(enemy))
-            enemy->move(enemy->get_originPoint());
+            enemy.move(enemy.get_originPoint());
         else {
-            if (enemy->get_Timer().get_current_time() - enemy->get_Timer().get_start() >= enemy->get_movementTime()) {
-                enemy->generate_movement_direction();
-                enemy->generate_movementTime();
+            if (enemy.get_Timer().get_current_time() - enemy.get_Timer().get_start() >= enemy.get_movementTime()) {
+                enemy.generate_movement_direction();
+                enemy.generate_movementTime();
             }
 
-            enemy->MovableCircularObject::move();
+            enemy.MovableCircularObject::move();
 
-            if (!this->is_on_walkingSurface(enemy))
-                enemy->set_dotCenter(prev);
+            if (!is_on_walkingSurface(enemy))
+                enemy.set_dotCenter(prev);
         }
-        this->detect_collisions(enemy, prev);
+        this->detect_collisions(&enemy, prev);
     }
 }
 
-void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy*>& p_enemies) const {
+void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy>& p_enemies) const {
 
     if (p_player->can_be_detected()) {
         Point playerPos = p_player->get_dotCenter();
 
         for (auto& enemy : p_enemies) {
-            if (enemy->detect_player(playerPos)) {
+            if (enemy.detect_player(playerPos)) {
 
-                Point enemyPos = enemy->get_dotCenter();
+                Point enemyPos = enemy.get_dotCenter();
                 SDL_Rect detectionRect;
 
                 if (playerPos.x < enemyPos.x) {
@@ -174,9 +174,9 @@ void CollisionDetector::detect_collisions(MovableCircularObject* p_entity, Point
     }
 }
 
-inline bool CollisionDetector::is_on_walkingSurface(Enemy* p_enemy) const {
+inline bool CollisionDetector::is_on_walkingSurface(const Enemy& p_enemy) const {
 
-    Point currentPosition = p_enemy->get_dotCenter();
+    Point currentPosition = p_enemy.get_dotCenter();
 
     for (auto& walkingSurface : m_walkingSurfaces) {
         if ((currentPosition.x >= walkingSurface.x && currentPosition.x <= walkingSurface.x + walkingSurface.w) &&

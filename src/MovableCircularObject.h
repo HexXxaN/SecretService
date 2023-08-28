@@ -5,6 +5,9 @@
 class MovableCircularObject 
 {
 public:
+	MovableCircularObject() {}
+	~MovableCircularObject() {}
+
 	inline unsigned short int get_Diameter() const { return m_Diameter; }
 	inline unsigned short int get_radius() const { return m_radius; }
 	inline Point get_dotCenter() const { return m_dotCenter; }

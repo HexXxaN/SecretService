@@ -15,21 +15,21 @@ WindowRenderer::~WindowRenderer(){
 	SDL_DestroyRenderer(m_renderer);
 }
 
-void WindowRenderer::render_static_texture(SDL_Texture* p_texture, Point p_origin) {
+void WindowRenderer::render_static_texture(SDL_Texture* p_texture, Point p_origin) const {
 	SDL_Rect dst = { p_origin.x, p_origin.y, 64, 64 };
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &dst);
 }
 
-void WindowRenderer::render_static_texture(SDL_Texture* p_mapTexture, SDL_Rect* p_src, SDL_Rect* p_dst){
+void WindowRenderer::render_static_texture(SDL_Texture* p_mapTexture, SDL_Rect* p_src, SDL_Rect* p_dst) const {
 	SDL_RenderCopy(m_renderer, p_mapTexture, p_src, p_dst);
 }
 
-void WindowRenderer::render_building(SDL_Texture* p_texture, Point p_origin, int p_width, int p_height) {
+void WindowRenderer::render_building(SDL_Texture* p_texture, Point p_origin, int p_width, int p_height) const {
 	SDL_Rect dst = { p_origin.x * 64, p_origin.y * 64, p_width * 64, p_height * 64 };
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &dst);
 }
 
-void WindowRenderer::render_entity(SDL_Texture* p_texture, MovableCircularObject* p_entity){
+void WindowRenderer::render_entity(SDL_Texture* p_texture, MovableCircularObject* p_entity) const {
 	unsigned short int diameter = p_entity->get_Diameter();
 	unsigned short int radius = p_entity->get_radius();
 	Point entityCenter = p_entity->get_dotCenter();

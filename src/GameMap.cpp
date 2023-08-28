@@ -9,13 +9,14 @@
 #include "Warehouse.h"
 
 
-GameMap::GameMap(WindowRenderer* p_window){
+GameMap::GameMap(const WindowRenderer& p_window){
 	load_textures(p_window);
 	load_buildings(p_window);
 	load_staticRectangularObjects();
 }
 
-GameMap::~GameMap(){
+GameMap::~GameMap() {
+
 	for (auto& building : m_buildings)
 		delete building;
 
@@ -26,17 +27,17 @@ GameMap::~GameMap(){
 		delete texture;
 }
 
-Texture* GameMap::render_map_texture(WindowRenderer* p_window){
+Texture GameMap::render_map_texture(WindowRenderer& p_window) {
 
-	Texture* mapTexture = new Texture();
-	mapTexture->create_texture(p_window, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
+	Texture mapTexture;
+	mapTexture.create_texture(p_window, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 
-	p_window->set_render_target(mapTexture->get_texture());
-	p_window->clear();
+	p_window.set_render_target(mapTexture.get_texture());
+	p_window.clear();
 
-	SDL_Rect src = mapTexture->get_src();
+	SDL_Rect src = mapTexture.get_src();
 
-	p_window->render_static_texture(m_textures[gr3]->get_texture(), nullptr, &src);
+	p_window.render_static_texture(m_textures[gr3]->get_texture(), nullptr, &src);
 
 	for (auto& object : m_staticRectangularObjects)
 		object->render_object(p_window);
@@ -44,12 +45,12 @@ Texture* GameMap::render_map_texture(WindowRenderer* p_window){
 	for (auto& building : m_buildings)
 		building->render_object(p_window);
 
-	p_window->set_render_target(nullptr);
+	p_window.set_render_target(nullptr);
 
 	return mapTexture;
 }
 
-void GameMap::load_textures(WindowRenderer* p_window) {
+void GameMap::load_textures(const WindowRenderer& p_window) {
 	//Loading map texutres
 	Texture* grass1 = new Texture(p_window, "../res/gfx/ground_grass_1.png", texture_type::grass1);
 	Texture* grass2 = new Texture(p_window, "../res/gfx/ground_grass_2.png", texture_type::grass2);
@@ -73,8 +74,7 @@ void GameMap::load_textures(WindowRenderer* p_window) {
 	m_textures.push_back(finish);
 }
 
-void GameMap::load_staticRectangularObjects()
-{
+void GameMap::load_staticRectangularObjects() {
 	StaticRectangularObject* pavement1 = new StaticRectangularObject(texture_type::pavement, { 0, 0 }, LEVEL_WIDTH, 2, m_textures[pv1]);
 	StaticRectangularObject* pavement2 = new StaticRectangularObject(texture_type::pavement, { 19, 2 }, 2, LEVEL_HEIGHT, m_textures[pv1]);
 	StaticRectangularObject* pavement3 = new StaticRectangularObject(texture_type::pavement, { 0 , m_buildings[0]->get_origin().y + m_buildings[0]->get_verticalWallHeight() + 1 },
@@ -102,8 +102,7 @@ void GameMap::load_staticRectangularObjects()
 	//m_staticRectangularObjects.push_back(wall1);
 }
 
-void GameMap::load_buildings(WindowRenderer* p_window)
-{
+void GameMap::load_buildings(const WindowRenderer& p_window) {
 	Building* house1 = new House({ 4, 5 });
 	Building* house2 = new House({ 4,20 });
 	Building* house3 = new House({ 4, 35 });

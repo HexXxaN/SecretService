@@ -13,14 +13,14 @@ class Texture
 {
 public:
 	Texture() {}
-	Texture(WindowRenderer* p_window, const char* p_filePath, unsigned short p_type = undef, bool p_colorKey = false);
+	Texture(const WindowRenderer& p_window, const char* p_filePath, unsigned short p_type = undef, bool p_colorKey = false);
 	~Texture();
 
 	inline short int get_type() const { return m_type; }
 	inline SDL_Rect get_src() const { return m_src; }
-	inline SDL_Texture* get_texture() { return m_texture; }
+	inline SDL_Texture* get_texture() const { return m_texture; }
 
-	void create_texture(WindowRenderer* p_window, int p_width, int p_height);
+	void create_texture(const WindowRenderer& p_window, int p_width, int p_height);
 
 private:
 	unsigned short m_type = undef;

@@ -19,26 +19,26 @@ int main(int argc, char* argv[]) {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 
 	//Create window renderer called "Secret Service"
-	WindowRenderer* window = new WindowRenderer("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT);
+	WindowRenderer window("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	//Create game map
-	GameMap* gameMap = new GameMap(window);
+	GameMap gameMap(window);
 
 	//Create player
 	Agent* player = nullptr;
 
 	//Load player texture
-	Texture* playerTex = new Texture(window, "../res/gfx/player_dot.png", texture_type::player, true);
+	Texture playerTex(window, "../res/gfx/player_dot.png", texture_type::player, true);
 	//Create enemy texture
-	Texture* enemyTex = new Texture(window, "../res/gfx/enemy_dot.png", texture_type::enemy, true);
+	Texture enemyTex(window, "../res/gfx/enemy_dot.png", texture_type::enemy, true);
 	//Create intro texture
-	Texture* intro = new Texture(window, "../res/gfx/intro.png");
+	Texture intro(window, "../res/gfx/intro.png");
 
 	//Create map texture using gameMap object
-	Texture* mapTexture = gameMap->render_map_texture(window);
+	Texture mapTexture = gameMap.render_map_texture(window);
 
-	CollisionDetector* collisionDetector = new CollisionDetector();
-	collisionDetector->set_colliders(gameMap);
+	CollisionDetector collisionDetector;
+	collisionDetector.set_colliders(gameMap);
 
 	//Create a variable that's true when the intro is running
 	bool introRunning = true;
@@ -48,9 +48,8 @@ int main(int argc, char* argv[]) {
 	//Create an object that's responsible for handling events
 	EventHandler events;
 
-	std::vector<Enemy*> enemies;
-	Enemy* en1 = new Enemy({ 500, 64 });
-	enemies.push_back(en1);
+	std::vector<Enemy> enemies(10);
+	enemies.emplace_back(Enemy({ 500, 64 }));
 	
 	//________________INTRO____________________
 	while (introRunning) {
@@ -74,14 +73,13 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		window->clear();
-		window->render_static_texture(intro->get_texture(), nullptr, nullptr);
-		window->display();
+		window.clear();
+		window.render_static_texture(intro.get_texture(), nullptr, nullptr);
+		window.display();
 	}
 
-	delete intro;
-
 	player->set_dotCenter({ 64, 64 });
+	SDL_Rect camera;
 
 	//______________MAIN LOOP__________________
 	while (gameRunning) {
@@ -92,32 +90,23 @@ int main(int argc, char* argv[]) {
 			events.handle_events(player);
 		}
 
-		collisionDetector->move_player(player);
-		collisionDetector->move_enemies(enemies);
-		collisionDetector->detect_player(player, enemies);
+		collisionDetector.move_player(player);
+		collisionDetector.move_enemies(enemies);
+		collisionDetector.detect_player(player, enemies);
 		player->handle_special_ability();
-		window->get_Camera()->handle_camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
-		window->clear();
-		SDL_Rect camera_tmp = window->get_Camera()->get_camera();
-		window->render_static_texture(mapTexture->get_texture(), &camera_tmp, nullptr);
-		window->render_entity(playerTex->get_texture(), player);
+		window.handle_Camera(player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
+		window.clear();
+		camera = window.get_Camera().get_camera();
+		window.render_static_texture(mapTexture.get_texture(), &camera, nullptr);
+		window.render_entity(playerTex.get_texture(), player);
 		for (auto& enemy : enemies)
-			window->render_entity(enemyTex->get_texture(), enemy);
-		window->display();
+			window.render_entity(enemyTex.get_texture(), &enemy);
+		window.display();
 	}
 	//_________END OF THE MAIN LOOP_____________
 
-	delete collisionDetector;
 	delete player;
-	delete enemyTex;
-	delete playerTex;
-	delete gameMap;
-	delete mapTexture;
-	delete window;
 
-	for (auto& enemy : enemies)
-		delete enemy;
-	
 	//Close SDL library
 	SDL_Quit();
 
