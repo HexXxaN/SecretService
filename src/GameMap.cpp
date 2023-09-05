@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <random>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "GameMap.h"
@@ -35,9 +36,37 @@ Texture GameMap::render_map_texture(WindowRenderer& p_window) {
 	p_window.set_render_target(mapTexture.get_texture());
 	p_window.clear();
 
-	SDL_Rect src = mapTexture.get_src();
 
-	p_window.render_static_texture(m_textures[gr3]->get_texture(), nullptr, &src);
+	//Generate grass
+	SDL_Rect dst;
+	int groundTex;
+
+	for (int i = 0; i < LEVEL_WIDTH; i++) {
+		for (int j = 0; j < LEVEL_HEIGHT; j++) {
+
+			dst = { i * 64, j * 64, 64, 64 };
+
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<int> dist(1, 3);
+
+			groundTex = dist(gen);
+
+			switch (groundTex) {
+			case 1:
+				p_window.render_static_texture(m_textures[gr1]->get_texture(), nullptr, &dst);
+				break;
+			case 2:
+				p_window.render_static_texture(m_textures[gr2]->get_texture(), nullptr, &dst);
+				break;
+			case 3:
+				p_window.render_static_texture(m_textures[gr3]->get_texture(), nullptr, &dst);
+				break;
+			}
+		}
+	}
+
+	//p_window.render_static_texture(m_textures[gr3]->get_texture(), nullptr, &src);
 
 	for (auto& object : m_staticRectangularObjects)
 		object->render_object(p_window);

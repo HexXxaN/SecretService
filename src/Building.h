@@ -28,5 +28,4 @@ protected:
 	unsigned short m_verticalWallY = 0;
 
 	std::vector<StaticRectangularObject*> m_components;
-	Texture* m_texture = nullptr;
 };

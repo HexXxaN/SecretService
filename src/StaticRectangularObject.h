@@ -24,7 +24,7 @@ public:
 	inline void set_height(unsigned short int p_height) { m_h = p_height; }
 	inline void set_texture(Texture* p_texture) { m_texture = p_texture; }
 
-	void render_object(const WindowRenderer& p_window);
+	virtual void render_object(const WindowRenderer& p_window);
 
 protected:
 	unsigned short m_type = undef;

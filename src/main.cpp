@@ -48,9 +48,12 @@ int main(int argc, char* argv[]) {
 	//Create an object that's responsible for handling events
 	EventHandler events;
 
-	std::vector<Enemy> enemies(10);
+	//Create a vector of enemies
+	std::vector<Enemy> enemies;
+	enemies.reserve(2);
 	enemies.emplace_back(Enemy({ 500, 64 }));
-	
+	enemies.emplace_back(Enemy({ 1000, 64 }));
+
 	//________________INTRO____________________
 	while (introRunning) {
 		while (events.while_events()) {
@@ -77,6 +80,7 @@ int main(int argc, char* argv[]) {
 		window.render_static_texture(intro.get_texture(), nullptr, nullptr);
 		window.display();
 	}
+	//________________END OF INTRO____________________
 
 	player->set_dotCenter({ 64, 64 });
 	SDL_Rect camera;
