@@ -66,8 +66,6 @@ Texture GameMap::render_map_texture(WindowRenderer& p_window) {
 		}
 	}
 
-	//p_window.render_static_texture(m_textures[gr3]->get_texture(), nullptr, &src);
-
 	for (auto& object : m_staticRectangularObjects)
 		object->render_object(p_window);
 
