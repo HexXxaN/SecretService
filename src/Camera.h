@@ -2,6 +2,10 @@
 #include <SDL.h>
 #include "Agent.h"
 
+/// A class responsible for handling the area to render.
+/// 
+///
+
 
 class Camera 
 {
@@ -15,6 +19,12 @@ public:
 
 	inline void set_camera(SDL_Rect p_camera) { m_camera = p_camera; }
 
+	/// A method that adjusts the position of camera.
+	/// 
+	/// The camera is centered around the player and is restricted by level boundaries.
+	/// <param name="p_player"> A pointer to the agent picked by the player. </param>
+	/// <param name="p_levelWidth"> Level width. </param>
+	/// <param name="p_levelHeight"> Level Height. </param>
 	void handle_camera(Agent* p_player, unsigned int p_levelWidth, unsigned int p_levelHeight);
 
 private:

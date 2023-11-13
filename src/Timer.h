@@ -3,6 +3,10 @@
 #include <iostream>
 
 
+/// A class responsible for measuring time.
+/// 
+/// This class uses time measuring tools provided by the SDL library.
+
 class Timer {
 public:
 	Timer() {}

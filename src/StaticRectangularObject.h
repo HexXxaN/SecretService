@@ -4,6 +4,10 @@
 #include "Texture.h"
 #include "WindowRenderer.h"
 
+/// A class for static rectangular objects.
+/// 
+/// This class can be used alone (for pavements, walls etc.) and it contains all the data that is shared by Building class.
+
 
 class StaticRectangularObject 
 {
@@ -24,6 +28,10 @@ public:
 	inline void set_height(unsigned short int p_height) { m_h = p_height; }
 	inline void set_texture(Texture* p_texture) { m_texture = p_texture; }
 
+	/// A method used to render the object onto the game map.
+	/// 
+	/// This method fills the designated area with a texture m_texture attribute points to.
+	/// <param name="p_window"> An object of a class that's responsible for rendering. </param>
 	virtual void render_object(const WindowRenderer& p_window);
 
 protected:

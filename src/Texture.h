@@ -9,6 +9,10 @@ enum texture_type {
 };
 
 
+/// A class responsible for storing textures.
+/// 
+///
+
 class Texture
 {
 public:
@@ -20,6 +24,12 @@ public:
 	inline SDL_Rect get_src() const { return m_src; }
 	inline SDL_Texture* get_texture() const { return m_texture; }
 
+	/// A method responsible for creating a new texture.
+	/// 
+	/// This method creates a new texture of given dimentions.
+	/// <param name="p_window"> A class responsible for rendering. </param>
+	/// <param name="p_width"> Texture width. </param>
+	/// <param name="p_height"> Texture height. </param>
 	void create_texture(const WindowRenderer& p_window, int p_width, int p_height);
 
 private:

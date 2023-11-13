@@ -2,6 +2,10 @@
 #include "StaticRectangularObject.h"
 #include "Texture.h"
 
+/// A virtual class that contains all the date shared by House and Warehouse classes.
+/// 
+/// This is a basic class for buildings in game that allows polymorphism.
+
 
 class Building : public StaticRectangularObject
 {
@@ -17,9 +21,23 @@ public:
 
 	void set_components_texture(const std::vector<Texture*>& p_textures);
 
+	/// A virtual method for generating buildings.
+	/// 
+	/// This method allows polymorphism for generating both House and Warehouse objects.
+	/// <param name="p_width"> The width of the building in 64x64 tiles. </param>
+	/// <param name="p_height"> The height of the building in 64x64 tiles. </param>
 	virtual void generate_building(unsigned short int p_width, unsigned short int p_height) = 0;
+
+	/// A method for creating building texture.
+	/// 
+	/// This method creates the building texture from its components.
+	/// <param name="p_window"> Class responsible for rendering. </param>
 	void create_building_texture(const WindowRenderer& p_window);
-	void render_object(const WindowRenderer& p_window);
+
+	/// A method for rendering the building.
+	/// 
+	/// <param name="p_window"> Class responsible for rendering. </param>
+	void render_object(const WindowRenderer& p_window) override;
 
 protected:	
 	unsigned short m_horizontalWallWidth = 0;
