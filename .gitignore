@@ -9,3 +9,4 @@ test
 
 # ignore all .user files
 *.user
+/Doxyfile
