@@ -128,7 +128,8 @@ void CollisionDetector::detect_player(Agent* p_player, std::vector<Enemy>& p_ene
 bool CollisionDetector::is_player_catched(Agent* p_player, const std::vector<Enemy>& p_enemies) const
 {
     Point playerPos = p_player->get_dotCenter();
-    int playerDiameter = p_player->get_Diameter();
+    unsigned short playerDiameter = p_player->get_Diameter();
+    int playerDiameterSquared = playerDiameter * playerDiameter;
 
     for (auto const& enemy : p_enemies) {
         Point enemyPos = enemy.get_dotCenter();
@@ -136,7 +137,7 @@ bool CollisionDetector::is_player_catched(Agent* p_player, const std::vector<Ene
         int deltaX = playerPos.x - enemyPos.x;
         int deltaY = playerPos.y - enemyPos.y;
 
-        if (deltaX * deltaX + deltaY * deltaY <= playerDiameter)
+        if (deltaX * deltaX + deltaY * deltaY <= playerDiameterSquared)
             return true;
     }
 
