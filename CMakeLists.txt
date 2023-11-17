@@ -8,4 +8,4 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 
 add_executable(secret-service ${SOURCES})
 
-target_link_libraries(secret-service SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)as
+target_link_libraries(secret-service SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
