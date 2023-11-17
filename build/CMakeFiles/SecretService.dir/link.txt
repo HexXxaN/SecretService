@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/SecretService.dir/src/main.cpp.o CMakeFiles/SecretService.dir/src/Application.cpp.o CMakeFiles/SecretService.dir/src/WindowRenderer.cpp.o -o SecretService 

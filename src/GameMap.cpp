@@ -1,8 +1,6 @@
 #pragma once
 #include <vector>
 #include <random>
-#include <SDL.h>
-#include <SDL_image.h>
 #include "GameMap.h"
 #include "Macros.h"
 #include "WindowRenderer.h"

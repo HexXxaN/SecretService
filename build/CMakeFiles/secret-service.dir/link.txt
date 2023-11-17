@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -rdynamic "CMakeFiles/secret-service.dir/src/main.cpp.o" -o secret-service 

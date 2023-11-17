@@ -1,5 +1,12 @@
 #pragma once
+#ifdef _WIN32
 #include <SDL.h>
+#include <SDL_image.h>
+#endif
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#endif
 #include "Agent.h"
 
 /// A class responsible for handling the area to render.

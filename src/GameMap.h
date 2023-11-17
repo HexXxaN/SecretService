@@ -1,7 +1,11 @@
 #pragma once
-#include <vector>
+#ifdef _WIN32
 #include <SDL.h>
-#include <SDL_image.h>
+#endif
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#endif
+#include <vector>
 #include "WindowRenderer.h"
 #include "Texture.h"
 #include "StaticRectangularObject.h"

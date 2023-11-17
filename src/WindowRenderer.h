@@ -1,5 +1,10 @@
 #pragma once
+#ifdef _WIN32
 #include <SDL.h>
+#endif
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#endif
 #include "Point.h"
 #include "Camera.h"
 #include "MovableCircularObject.h"

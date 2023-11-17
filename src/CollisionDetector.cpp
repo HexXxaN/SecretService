@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL.h>
 #include <cmath>
 #include "CollisionDetector.h"
 #include "Agent.h"
