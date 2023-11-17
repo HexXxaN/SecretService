@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(secret-service VERSION 0.1.0 LANGUAGES C CXX)
 
-add_executable(secret-service src/main.cpp)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+
+add_executable(secret-service ${SOURCES})
+
+target_link_libraries(secret-service SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
