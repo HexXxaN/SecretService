@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/secret-service.dir/src/main.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/main.cpp",
-  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/main.cpp"
-}
-]
