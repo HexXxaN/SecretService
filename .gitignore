@@ -12,4 +12,6 @@ test
 
 /Doxyfile
 
-/build
+./build/
+build/cmake_install.cmake
+build/CMakeCache.txt
