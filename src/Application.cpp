@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "CollisionDetector.h"
+#include <random>
 
 Application::~Application()
 {
@@ -55,9 +56,15 @@ void Application::intro_loop()
 void Application::main_loop()
 {
 	GameMap gameMap(m_window);
+
+	std::random_device rd;
+	std::mt19937 gen(0);
+
 	Texture playerTex(m_window, "../res/gfx/player_dot.png", texture_type::player, true);
 	Texture enemyTex(m_window, "../res/gfx/enemy_dot.png", texture_type::enemy, true);
-	Texture mapTex = gameMap.render_map_texture(m_window);
+	Texture mapTex = gameMap.render_map_texture(m_window, gen);
+
+	gen.seed(rd());
 
 	CollisionDetector collisionDetector;
 	collisionDetector.set_colliders(gameMap);
@@ -84,7 +91,7 @@ void Application::main_loop()
 		}
 
 		collisionDetector.move_player(m_player);
-		collisionDetector.move_enemies(enemies);
+		collisionDetector.move_enemies(enemies, gen);
 		collisionDetector.detect_player(m_player, enemies);
 		if (collisionDetector.is_player_catched(m_player, enemies))
 			break;
