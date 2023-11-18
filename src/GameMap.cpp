@@ -26,7 +26,7 @@ GameMap::~GameMap() {
 		delete texture;
 }
 
-Texture GameMap::render_map_texture(WindowRenderer& p_window) {
+Texture GameMap::render_map_texture(WindowRenderer& p_window, std::mt19937& p_gen) {
 
 	Texture mapTexture;
 	mapTexture.create_texture(p_window, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
@@ -37,18 +37,18 @@ Texture GameMap::render_map_texture(WindowRenderer& p_window) {
 
 	//Generate grass
 	SDL_Rect dst;
+	dst.w = dst.h = 64;
 	int groundTex;
+
+	std::uniform_int_distribution<int> dist(1, 3);
 
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 
-			dst = { i * 64, j * 64, 64, 64 };
+			dst.x = i * 64;
+			dst.y = j * 64;
 
-			std::random_device rd;
-			std::mt19937 gen(rd());
-			std::uniform_int_distribution<int> dist(1, 3);
-
-			groundTex = dist(gen);
+			groundTex = dist(p_gen);
 
 			switch (groundTex) {
 			case 1:

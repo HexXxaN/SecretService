@@ -37,7 +37,7 @@ public:
 	/// This method creates map texture containing all the buildings, pavements and ground.
 	/// <param name="p_window"> A class responsible for rendering. </param>
 	/// <returns> Map texture. </returns>
-	Texture render_map_texture(WindowRenderer& p_window);
+	Texture render_map_texture(WindowRenderer& p_window, std::mt19937& p_gen);
 
 private:
 
