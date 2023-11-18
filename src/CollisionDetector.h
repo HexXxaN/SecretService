@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #endif
 #include <vector>
+#include <random>
 #include "Agent.h"
 #include "Enemy.h"
 #include "GameMap.h"
@@ -33,7 +34,7 @@ public:
 	/// 
 	/// This method is used for keeping the Enemies inside the walkable areas when the player is not detected as well as detecting collisions with obsticles.
 	/// <param name="p_enemies"> A reference to the vector of Enemies. </param>
-	void move_enemies(std::vector<Enemy>& p_enemies) const;
+	void move_enemies(std::vector<Enemy>& p_enemies, std::mt19937& p_gen) const;
 
 	/// A method responsible for detecting the player by Enemies with obsticle restriction.
 	/// 

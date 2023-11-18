@@ -1,6 +1,7 @@
 #pragma once
-#include <cmath>
+#include <random>
 #include "CollisionDetector.h"
+#include "Enemy.h"
 #include "Agent.h"
 
 
@@ -44,7 +45,7 @@ void CollisionDetector::move_player(Agent* p_player) const {
     this->detect_collisions(p_player, prev);
 }
 
-void CollisionDetector::move_enemies(std::vector<Enemy>& p_enemies) const {
+void CollisionDetector::move_enemies(std::vector<Enemy>& p_enemies, std::mt19937& p_gen) const {
 
     for (auto& enemy : p_enemies) {
 
@@ -61,8 +62,8 @@ void CollisionDetector::move_enemies(std::vector<Enemy>& p_enemies) const {
             enemy.move(enemy.get_originPoint());
         else {
             if (enemy.get_Timer().get_current_time() - enemy.get_Timer().get_start() >= enemy.get_movementTime()) {
-                enemy.generate_movement_direction();
-                enemy.generate_movementTime();
+                enemy.generate_movement_direction(p_gen);
+                enemy.generate_movementTime(p_gen);
             }
 
             enemy.MovableCircularObject::move();

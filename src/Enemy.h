@@ -32,7 +32,7 @@ public:
 	/// A method that generates movement time of the enemy while the player is not detected.
 	/// 
 	/// This method generates the movement time between 100 and 500 ms.
-	void generate_movementTime();
+	void generate_movementTime(std::mt19937& p_gen);
 
 	/// A method for moving the enemy to a certain destination point.
 	/// 
@@ -42,11 +42,13 @@ public:
 	/// A method that generates the movement direction of the enemy.
 	/// 
 	/// The enemy can move only up, down, left, and right.
-	void generate_movement_direction();
+	void generate_movement_direction(std::mt19937& p_gen);
 
 private:
 	static bool m_wasPlayerSpotted;
 	static Point m_playerPos;
+	static std::uniform_int_distribution<int> m_movementDirRange;
+	static std::uniform_int_distribution<int> m_movementTimeRange;
 
 	const short int m_DetectionRadius = 300;
 	unsigned short int m_movementTime = 0;
