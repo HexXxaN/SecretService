@@ -10,7 +10,8 @@
 class Agent : public MovableCircularObject
 {
 public:
-	Agent() { m_vel = 6; }
+	Agent()
+		: 	MovableCircularObject(6) {}
 	virtual ~Agent() {}
 
 	inline void set_moveUp(bool p_val) { m_moveUp = p_val; }
