@@ -10,13 +10,16 @@
 class MovableCircularObject 
 {
 public:
-	MovableCircularObject() {}
+	MovableCircularObject()
+		:	m_vel(5) {}
+	MovableCircularObject(short unsigned int p_vel)
+		:	m_vel(p_vel) {}
 	virtual ~MovableCircularObject() {}
 
 	inline unsigned short int get_Diameter() const { return m_Diameter; }
 	inline unsigned short int get_radius() const { return m_radius; }
 	inline Point get_dotCenter() const { return m_dotCenter; }
-	Timer get_Timer() { return m_Timer; }
+	Timer get_Timer() const { return m_Timer; }
 
 	void set_dotCenter(Point p_dotCenter) { m_dotCenter = p_dotCenter; }
 
@@ -28,7 +31,7 @@ public:
 protected:
 	const unsigned int m_Diameter = 55;
 	unsigned short int m_radius = m_Diameter / 2;
-	short unsigned int m_vel = 5;
+	short unsigned int m_vel;	// the velocity is 5 by default
 	bool m_moveUp = false;
 	bool m_moveDown = false;
 	bool m_moveLeft = false;
