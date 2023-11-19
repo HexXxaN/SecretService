@@ -12,3 +12,45 @@ The enemies cannot see through obsticles, and when the player is not detected th
 
 
 To run the game on Windows simply download the Release file, go to windows subfolder and run SecretService.exe
+
+To run it on a Debian-based Linux distro, make sure you have installed git, cmake, libsdl2-dev, and libsdl2-image-dev:
+
+`sudo apt update`
+
+`sudo apt install git`
+
+`sudo apt install cmake`
+
+`sudo apt install libsdl2-dev`
+
+`sudo apt install libsdl2-image-dev`
+
+Once you've installed everything, simply clone the repository to a directory of your choice:
+
+`git clone https://github.com/HexXxaN/SecretService`
+
+After you've cloned the repository, move to its directory:
+
+`cd SecretService/`
+
+Now you have to make a build folder:
+
+`mkdir build`
+
+Move to that folder:
+
+`cd build/`
+
+And run the cmake:
+
+`cmake ..`
+
+Now build the source files:
+
+`cmake --build .`
+
+If everthing went correct, you should be able to launch the game by typing in the terminal:
+
+`./secret-service`
+
+Enjoy!
