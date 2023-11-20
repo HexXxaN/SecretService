@@ -15,8 +15,6 @@
 class Timer {
 public:
 	Timer() {}
-	Timer(const Timer& p_other)
-		: m_start(p_other.get_start()) {}
 	~Timer() {}
 
 	inline unsigned int  get_current_time() const { return SDL_GetTicks();}
