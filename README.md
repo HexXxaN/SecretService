@@ -52,7 +52,7 @@ Now build the source files:
 ```
 cmake --build .
 ```
-If everthing went correct, you should be able to launch the game by typing in the terminal:
+If everything went correct, you should be able to launch the game by typing in the terminal:
 ```
 ./secret-service
 ```
