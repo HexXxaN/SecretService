@@ -10,6 +10,11 @@ test
 # ignore all .user files
 *.user
 
+# ignore Doxygen files
 /Doxyfile
 
+#ignore build directory
 build/*
+
+#ignore Visual Studio solution file
+*.sln
