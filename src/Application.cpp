@@ -8,15 +8,14 @@ Application::~Application()
 	SDL_Quit();
 }
 
-void Application::run()
+void Application::i_run()
 {
-	intro_loop();
-
+	i_intro_loop();
 	if(m_isGameRunning)
-		main_loop();
+		i_main_loop();
 }
 
-void Application::intro_loop()
+void Application::i_intro_loop()
 {
 	Texture intro(m_window, "../res/gfx/intro.png");
 	bool isIntroRunning = true;
@@ -53,9 +52,9 @@ void Application::intro_loop()
 	}
 }
 
-void Application::main_loop()
+void Application::i_main_loop()
 {
-	GameMap gameMap(m_window);
+	GameMap& gameMap = GameMap::get_instance(m_window);
 
 	std::random_device rd;
 	std::mt19937 gen(0);
@@ -66,10 +65,10 @@ void Application::main_loop()
 
 	gen.seed(rd());
 
-	CollisionDetector collisionDetector;
+	CollisionDetector& collisionDetector = CollisionDetector::get_instance();
 	collisionDetector.set_colliders(gameMap);
 
-	SDL_Rect camera;
+	SDL_Rect cameraRect;
 
 	m_player->set_dotCenter({ 64, 64 });
 
@@ -98,8 +97,8 @@ void Application::main_loop()
 		m_player->handle_special_ability();
 		m_window.handle_Camera(m_player, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 		m_window.clear();
-		camera = m_window.get_Camera().get_camera();
-		m_window.render_static_texture(mapTex.get_texture(), &camera, nullptr);
+		cameraRect = m_window.get_camera();
+		m_window.render_static_texture(mapTex.get_texture(), &cameraRect, nullptr);
 		m_window.render_entity(playerTex.get_texture(), m_player);
 		for (auto& enemy : enemies)
 			m_window.render_entity(enemyTex.get_texture(), &enemy);

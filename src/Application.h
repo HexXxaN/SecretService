@@ -20,22 +20,26 @@
 class Application
 {
 public:
-	Application()
-		: m_window("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT) 
-	{
-		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
-	}
+	Application(const Application&) = delete;
 	~Application();
+	Application& operator=(const Application&) = delete;
 
-	void run();
+	static void run() 
+	{ 
+		static Application app;
+		app.i_run();
+	}
 
 private:
-	void intro_loop();
-	void main_loop();
+	Application() { SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS); }
+
+	void i_run();
+	void i_intro_loop();
+	void i_main_loop();
 
 private:
-	WindowRenderer m_window;
-	EventHandler m_events;
+	WindowRenderer& m_window = WindowRenderer::get_instance();
+	EventHandler& m_events = EventHandler::get_instance();
 	Agent* m_player = nullptr;
 	bool m_isGameRunning = true;
 };

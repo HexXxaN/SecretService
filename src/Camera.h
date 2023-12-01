@@ -17,14 +17,19 @@
 class Camera 
 {
 public:
-	Camera() {}
-	Camera(const Camera& p_other)
-		: m_camera(p_other.get_camera()) {}
+	Camera(const Camera&) = delete;
 	~Camera() {}
+	Camera& operator=(const Camera&) = delete;
 
-	inline SDL_Rect get_camera() const { return m_camera; }
+	static Camera& get_instance()
+	{
+		static Camera instance;
+		return instance;
+	}
 
-	inline void set_camera(SDL_Rect p_camera) { m_camera = p_camera; }
+	inline SDL_Rect get_cameraRect() const { return m_cameraRect; }
+
+	inline void set_cameraRect(const SDL_Rect& p_cameraRect) { m_cameraRect = p_cameraRect; }
 
 	/// A method that adjusts the position of camera.
 	/// 
@@ -35,5 +40,8 @@ public:
 	void handle_camera(Agent* p_player, unsigned int p_levelWidth, unsigned int p_levelHeight);
 
 private:
-	SDL_Rect m_camera;
+	Camera() {}
+
+private:
+	SDL_Rect m_cameraRect;
 };

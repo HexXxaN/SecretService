@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "GameMap.h"
 
+
 /// A class responsible for handling collisions.
 /// 
 /// This class handles collisions for both player and enemies.
@@ -19,8 +20,15 @@
 class CollisionDetector
 {
 public:
-	CollisionDetector() {}
+	CollisionDetector(const CollisionDetector&) = delete;
 	~CollisionDetector() {}
+	CollisionDetector& operator=(const CollisionDetector&) = delete;
+
+	static CollisionDetector& get_instance()
+	{
+		static CollisionDetector instance;
+		return instance;
+	}
 
 	void set_colliders(const GameMap& p_GameMap);
 
@@ -46,6 +54,7 @@ public:
 	bool is_player_catched(Agent* p_player, const std::vector<Enemy>& p_enemies) const;
 
 private:
+	CollisionDetector() {}
 
 	/// A direct method for detecting collisions for both agent and Enemies.
 	/// 

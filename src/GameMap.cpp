@@ -27,7 +27,7 @@ GameMap::~GameMap() {
 }
 
 Texture GameMap::render_map_texture(WindowRenderer& p_window, std::mt19937& p_gen) {
-
+	
 	Texture mapTexture;
 	mapTexture.create_texture(p_window, LEVEL_WIDTH * 64, LEVEL_HEIGHT * 64);
 

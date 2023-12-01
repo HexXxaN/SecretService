@@ -10,6 +10,7 @@
 #include "MovableCircularObject.h"
 #include "Agent.h"
 #include "Enemy.h"
+#include "Macros.h"
 
 
 /// A class responsible for rendering.
@@ -18,14 +19,20 @@
 
 class WindowRenderer {
 public:
-	WindowRenderer() {}
-	WindowRenderer(const char* p_title, int p_width, int p_height);
+	WindowRenderer(const WindowRenderer&) = delete;
 	~WindowRenderer();
+	WindowRenderer& operator=(const WindowRenderer&) = delete;
 
-	inline SDL_Renderer* get_renderer() const { return m_renderer; }
-	inline Camera get_Camera() const { return m_Camera; }
+	static WindowRenderer& get_instance()
+	{
+		static WindowRenderer instance("Secret Service", SCREEN_WIDTH, SCREEN_HEIGHT);
+		return instance;
+	}
 
-	inline void set_Camera(SDL_Rect p_rect) { m_Camera.set_camera(p_rect); }
+	SDL_Renderer* get_renderer() const { return m_renderer; }
+	SDL_Rect get_camera() const { return m_Camera.get_cameraRect(); }
+
+	inline void set_Camera(const SDL_Rect& p_rect) { m_Camera.set_cameraRect(p_rect); }
 
 	/// A method responsible for loading textures from a filepath.
 	/// 
@@ -89,9 +96,11 @@ public:
 	/// <param name="p_entity"> A pointer to Agent or Enemy classes. </param>
 	void render_entity(SDL_Texture* p_texture, MovableCircularObject* p_entity) const;
 
+private:
+	WindowRenderer(const char* p_title, int p_width, int p_height);
 
 private:
-	Camera m_Camera;
+	Camera& m_Camera = Camera::get_instance();
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 };

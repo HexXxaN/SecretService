@@ -3,7 +3,6 @@
 
 int main(int argc, char* argv[]) 
 {
-	Application app;
-	app.run();
+	Application::run();
 	return 0;
 }

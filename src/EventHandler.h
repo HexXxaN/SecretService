@@ -16,16 +16,23 @@
 class EventHandler 
 {
 public:
-	EventHandler() {}
+	EventHandler(const EventHandler&) = delete;
+	EventHandler& operator=(const EventHandler&) = delete;
 	~EventHandler() {}
 
-	inline SDL_Event get_event() const { return m_event; }
+	static EventHandler& get_instance()
+	{
+		static EventHandler instance;
+		return instance;
+	}
+
+	SDL_Event get_event() const { return m_event; }
 
 	/// A method that checks if inputs are queued.
 	/// 
 	/// 
 	/// <returns> True if there are inputs to process and false if there are not. </returns>
-	inline bool while_events() { return SDL_PollEvent(&m_event); };
+	bool while_events() { return SDL_PollEvent(&m_event); };
 
 	/// A method responsible for handling events.
 	/// 
@@ -34,5 +41,6 @@ public:
 	void handle_events(Agent* p_agent);
 
 private:
+	EventHandler() {}
 	SDL_Event m_event;
 };

@@ -5,7 +5,7 @@
 WindowRenderer::WindowRenderer(const char* p_title, int p_width, int p_height) {
 	m_window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_width, p_height, SDL_WINDOW_SHOWN);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
-	m_Camera.set_camera({ 0 , 0, p_width, p_height });
+	m_Camera.set_cameraRect({ 0 , 0, p_width, p_height });
 }
 
 WindowRenderer::~WindowRenderer(){
@@ -31,7 +31,7 @@ void WindowRenderer::render_entity(SDL_Texture* p_texture, MovableCircularObject
 	unsigned short int diameter = p_entity->get_Diameter();
 	unsigned short int radius = p_entity->get_radius();
 	Point entityCenter = p_entity->get_dotCenter();
-	SDL_Rect camera = m_Camera.get_camera();
+	SDL_Rect camera = m_Camera.get_cameraRect();
 
 	SDL_Rect drawingRect = { entityCenter.x - radius - camera.x, entityCenter.y - radius - camera.y, diameter, diameter};
 	SDL_RenderCopy(m_renderer, p_texture, nullptr, &drawingRect);

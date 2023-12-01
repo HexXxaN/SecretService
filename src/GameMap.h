@@ -25,9 +25,15 @@ enum texture_enum{
 class GameMap
 {
 public:
-	GameMap() {}
-	GameMap(const WindowRenderer& p_window);
+	GameMap(const GameMap&) = delete;
 	~GameMap();
+	GameMap& operator=(const GameMap&) = delete;
+
+	static GameMap& get_instance(const WindowRenderer& p_window)
+	{
+		static GameMap instance(p_window);
+		return instance;
+	}
 
 	inline std::vector<StaticRectangularObject*> get_StaticRectangularObjects() const { return m_staticRectangularObjects; }
 	inline std::vector<Building*> get_Buildings() const { return m_buildings; }
@@ -40,6 +46,7 @@ public:
 	Texture render_map_texture(WindowRenderer& p_window, std::mt19937& p_gen);
 
 private:
+	GameMap(const WindowRenderer& p_window);
 
 	/// A method responsible for loading textures.
 	/// 
