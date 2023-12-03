@@ -13,3 +13,5 @@ test
 /Doxyfile
 
 build/*
+
+.cache
