@@ -1,0 +1,82 @@
+[
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Agent_A.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Agent_A.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Agent_A.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Agent_B.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Agent_B.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Agent_B.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Application.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Application.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Application.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Building.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Building.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Building.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Camera.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Camera.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Camera.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/CollisionDetector.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/CollisionDetector.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/CollisionDetector.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Enemy.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Enemy.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Enemy.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/EventHandler.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/EventHandler.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/EventHandler.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/GameMap.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/GameMap.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/GameMap.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/House.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/House.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/House.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/MovableCircularObject.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/MovableCircularObject.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/MovableCircularObject.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/StaticRectangularObject.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/StaticRectangularObject.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/StaticRectangularObject.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Texture.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Texture.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Texture.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/Warehouse.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/Warehouse.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/Warehouse.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/WindowRenderer.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/WindowRenderer.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/WindowRenderer.cpp"
+},
+{
+  "directory": "/home/sslubik/Desktop/Projects_cpp/SecretService/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/SDL2 -O3 -DNDEBUG -o CMakeFiles/secret-service.dir/src/main.cpp.o -c /home/sslubik/Desktop/Projects_cpp/SecretService/src/main.cpp",
+  "file": "/home/sslubik/Desktop/Projects_cpp/SecretService/src/main.cpp"
+}
+]
