@@ -1,0 +1,3 @@
+/home/sslubik/Desktop/Projects_cpp/SecretService/build/CMakeFiles/secret-service.dir
+/home/sslubik/Desktop/Projects_cpp/SecretService/build/CMakeFiles/edit_cache.dir
+/home/sslubik/Desktop/Projects_cpp/SecretService/build/CMakeFiles/rebuild_cache.dir
