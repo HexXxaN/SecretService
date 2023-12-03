@@ -10,6 +10,8 @@ test
 # ignore all .user files
 *.user
 
-/Doxyfile
+# ignore folder created by doxygen
+Doxyfile
 
-build/*
+# ignore .cache folder created by clang
+.cache
