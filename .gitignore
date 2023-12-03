@@ -1,23 +1,17 @@
 # ignore x64 file
 x64
 
-# ignore test file
-test
-
 # ignore all .vs files
 *.vs
 
 # ignore all .user files
 *.user
 
-# ignore Doxygen files
-/Doxyfile
-
-# ignore build directory
-build/*
-
 # ignore .cache files created by clang
 .cache
 
 # ignore Visual Studio solution file
 *.sln
+
+# ignore folder created by doxygen
+Doxyfile
